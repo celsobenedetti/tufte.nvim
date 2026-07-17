@@ -7,6 +7,7 @@ local M = {}
 ---@field tiers string[] -- 7 entries, T1 faint chrome -> T7 focus
 ---@field accent string  -- vermillion, used sparingly
 ---@field highlight string -- yellow highlight
+---@field secondary string -- Special, function calls
 
 ---@param variant string
 ---@return tufte.Palette
@@ -46,7 +47,7 @@ local function build_palette(p)
     blue7 = Util.blend(t[7], 0.09, bg), -- diff change bg (light)
 
     comment = t[2],
-    cyan = t[4], -- preprocessor, macros, special
+    cyan = p.secondary, -- preprocessor, macros, special
 
     dark3 = Util.blend(t[2], 0.45, t[1]), -- nontext, ignored
     dark5 = Util.blend(t[2], 0.7, t[1]),  -- concealed text
@@ -79,6 +80,7 @@ local function build_palette(p)
 
     accent = p.accent,
     highlight = p.highlight,
+    secondary = p.secondary,
   }
 end
 

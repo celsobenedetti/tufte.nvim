@@ -85,7 +85,8 @@
   .num  { color: var(--t4); }                        /* T4 numbers */
   .var  { color: var(--t5); }                        /* T5 variables / properties */
   .typ  { color: var(--t6); }                        /* T6 types / statements */
-  .fn   { color: var(--t7); font-weight: 600; }      /* T7 functions */
+  .fn   { color: var(--t7); font-weight: 600; }      /* T7 functions (definitions) */
+  .call { color: var(--secondary); font-weight: 600; } /* secondary — function CALLS, Special */
   .kw   { color: var(--t7); font-style: italic; }    /* T7 keywords */
   .fg   { color: var(--t7); }                        /* main fg */
   .sel  { background: var(--highlight); }            /* yellow selection */
@@ -178,14 +179,17 @@ const PALETTE_META = {
     name: 'Off-black (Tufte-CSS canonical)',
     desc: 'Text = <b>#111111</b> exactly per the Tufte-CSS spec, the seven'
        + ' tiers a cool-neutral gray ramp.  The most literal reading of the'
-       + ' source note — restrained, closest to ink-on-paper.',
+       + ' source note — restrained, closest to ink-on-paper. A deep teal'
+       + ' <b>secondary</b> ink marks <code>Special</code> and function calls.',
     fg_comment: 'off-black ink',
   },
   coffee: {
     name: 'Black-coffee ink (warm variant)',
     desc: 'A whisper of warmth over the canonical ramp: the seven tiers'
        + ' blend cream into <b>#2d1c0b</b> (black coffee) with mid-tones'
-       + ' nudged warm, so grays read as coffee, not gray.',
+       + ' nudged warm, so grays read as coffee, not gray. A verdigris'
+       + ' <b>secondary</b> ink — teal warmed toward the coffee ink — marks'
+       + ' <code>Special</code> and function calls.',
     fg_comment: 'black coffee ink',
   },
 };
@@ -199,6 +203,7 @@ function getPaletteColors() {
     tiers: [1, 2, 3, 4, 5, 6, 7].map((i) => get('--t' + i)),
     accent: get('--accent'),
     highlight: get('--highlight'),
+    secondary: get('--secondary'),
     wallpaper: get('--wallpaper'),
   };
 }
@@ -229,10 +234,10 @@ function buildLines(colors, meta) {
     {n:17, html:``},
     {n:18, html:`<span class="cmt">--- Map a syntax group onto a tier by prominence.</span>`},
     {n:19, html:`<span class="kw">function</span> <span class="typ">M</span><span class="op">.</span><span class="fn">setup</span><span class="op">(</span><span class="var">opts</span><span class="op">)</span>`, cursor:true},
-    {n:20, html:`  <span class="kw">local</span> <span class="var">c</span> <span class="op">=</span> <span class="var">vim</span><span class="op">.</span><span class="fn">tbl_extend</span><span class="op">(</span><span class="str">"force"</span><span class="op">,</span> <span class="var">palette</span><span class="op">,</span> <span class="var">opts</span><span class="op">)</span>`},
+    {n:20, html:`  <span class="kw">local</span> <span class="var">c</span> <span class="op">=</span> <span class="var">vim</span><span class="op">.</span><span class="call">tbl_extend</span><span class="op">(</span><span class="str">"force"</span><span class="op">,</span> <span class="var">palette</span><span class="op">,</span> <span class="var">opts</span><span class="op">)</span>`},
     {n:21, html:`  <span class="typ">Comment</span> <span class="op">=</span> <span class="op">{</span> <span class="var">fg</span> <span class="op">=</span> <span class="var">c</span><span class="op">.</span><span class="var">tiers</span><span class="op">[</span><span class="num">2</span><span class="op">]</span><span class="op">,</span> <span class="var">italic</span> <span class="op">=</span> <span class="kw">true</span> <span class="op">}</span>`},
-    {n:22, html:`  <span class="typ">Function</span> <span class="op">=</span> <span class="op">{</span> <span class="var">fg</span> <span class="op">=</span> <span class="var">c</span><span class="op">.</span><span class="var">tiers</span><span class="op">[</span><span class="num">7</span><span class="op">]</span> <span class="op">}</span>`},
-    {n:23, html:`  <span class="kw">return</span> <span class="fn">apply</span><span class="op">(</span><span class="sel">c, opts.groups</span><span class="op">)</span>`, diag:'unused local `c` — shadows line ' + cLine},
+    {n:22, html:`  <span class="typ">Special</span> <span class="op">=</span> <span class="op">{</span> <span class="var">fg</span> <span class="op">=</span> <span class="var">c</span><span class="op">.</span><span class="call">secondary</span> <span class="op">}</span>`},
+    {n:23, html:`  <span class="kw">return</span> <span class="call">apply</span><span class="op">(</span><span class="sel">c, opts.groups</span><span class="op">)</span>`, diag:'unused local `c` — shadows line ' + cLine},
     {n:24, html:`<span class="kw">end</span>`},
   ];
 }
@@ -274,12 +279,15 @@ function render(key) {
     const textc = i >= 3 ? colors.bg : t[6];
     return `<div class="chip" style="background:${c};color:${textc}">
       <span class="lab">${LABELS[i]}</span><span class="hex">${c}</span></div>`;
-  }).join('') + `<div class="chip" style="background:${colors.accent};color:${colors.bg}">
+  }).join('')
+    + `<div class="chip" style="background:${colors.secondary};color:${colors.bg}">
+      <span class="lab">secondary</span><span class="hex">${colors.secondary}</span></div>`
+    + `<div class="chip" style="background:${colors.accent};color:${colors.bg}">
       <span class="lab">accent</span><span class="hex">${colors.accent}</span></div>`;
 
   // meta
   document.getElementById('v-title').textContent = 'tufte.nvim — ' + v.name;
-  document.getElementById('v-sub').textContent = `bg ${colors.bg}  ·  fg ${t[6]}  ·  accent ${colors.accent}  ·  highlight ${colors.highlight}`;
+  document.getElementById('v-sub').textContent = `bg ${colors.bg}  ·  fg ${t[6]}  ·  secondary ${colors.secondary}  ·  accent ${colors.accent}  ·  highlight ${colors.highlight}`;
   document.getElementById('v-desc').innerHTML = v.desc;
   document.getElementById('k').textContent = key.toUpperCase();
   document.getElementById('name').textContent = ' ' + v.name;

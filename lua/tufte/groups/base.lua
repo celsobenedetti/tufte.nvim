@@ -99,7 +99,7 @@ function M.get(c, opts)
     StorageClass                = { fg = c.yellow },
     Structure                   = { fg = c.yellow },
     Typedef                     = { fg = c.yellow },
-    Special                     = { fg = c.cyan },
+    Special                     = { fg = c.secondary },
     SpecialChar                 = { fg = c.special_char },
     Tag                         = { fg = c.red },
     Delimiter                   = { fg = c.fg },

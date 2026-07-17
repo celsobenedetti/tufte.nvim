@@ -63,6 +63,7 @@ HEADER
 
     accent=$(extract_hex < <(grep 'accent *=.*"' "$lua_file"))
     highlight=$(extract_hex < <(grep 'highlight *=.*"' "$lua_file"))
+    secondary=$(extract_hex < <(grep 'secondary *=.*"' "$lua_file"))
 
     # First line of the Lua file is a `--` comment → palette subtitle
     desc=$(head -1 "$lua_file" | sed 's/^-- *//')
@@ -80,6 +81,7 @@ HEADER
     done
     echo "  --accent: ${accent};"
     echo "  --highlight: ${highlight};"
+    echo "  --secondary: ${secondary};"
     echo "  --wallpaper: ${wallpaper};"
 
     echo "}"

@@ -1,6 +1,6 @@
 # tufte.nvim
 
-Tufte Design with a sip of caffeine; compliant to her Grand Cenobite's will.
+Tufte Design with a sip of caffeine; complying to her Grand Cenobite's will.
 
 Inspired by the discipline of [white.nvim], bringing it off white and a bit of
 inspiration.
@@ -10,7 +10,8 @@ of vermillion. Inspired by Edward Tufte's book design: a creamy off-white
 `#fffff8` page, coffee-dark ink, and a 7-tier luminance hierarchy that builds
 structure through darkness alone. Important code is dark; everything else fades.
 Color is spent only where it carries meaning — vermillion `#a00000` for errors
-and deletions, yellow `#ffec99` for search and selection.
+and deletions, yellow `#ffec99` for search and selection, and a teal
+`secondary` ink for `Special` and function calls.
 
 ## Variants
 
@@ -32,8 +33,9 @@ T6  #403020  keywords, types           T6  #292928
 T7  #2d1c0b  functions, foreground     T7  #111111
 ```
 
-Both sit on `#fffff8` paper, accented by vermillion `#a00000` and highlighted
-with `#ffec99`.
+Both sit on `#fffff8` paper, accented by vermillion `#a00000`, highlighted
+with `#ffec99`, and marked with a teal `secondary` ink (`#10554f` coffee /
+`#055656` tufte) for `Special` and function calls.
 
 Bold is reserved for structural elements: functions, keywords, types. Comments
 are italic. Your eyes land on what matters.
