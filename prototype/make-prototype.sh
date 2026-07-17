@@ -76,7 +76,7 @@ HEADER
 
     echo "  --bg: ${bg};"
     for i in "${!tiers[@]}"; do
-      echo "  --t$((i+1)): ${tiers[$i]};"
+      echo "  --t$((i + 1)): ${tiers[$i]};"
     done
     echo "  --accent: ${accent};"
     echo "  --highlight: ${highlight};"
@@ -86,7 +86,7 @@ HEADER
     echo ""
 
   done
-} > "$OUTPUT"
+} >"$OUTPUT"
 
 echo "✔  Generated $OUTPUT"
 echo "   Palettes found: $(ls "$PALETTE_DIR"/*.lua 2>/dev/null | wc -l)"
