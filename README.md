@@ -1,22 +1,32 @@
-# white.nvim
+# tufte.nvim
 
-A monochrome colorscheme for Neovim. No color. Just light and dark.
+A disciplined, minimal colorscheme for Neovim — paper, coffee, and a rare drop of vermillion.
 
-white uses a 7-tier luminance hierarchy on a pure white `#ffffff` background to create visual structure through darkness alone. Important code is dark. Everything else fades.
+Inspired by Edward Tufte's book design: a creamy off-white `#fffff8` page, coffee-dark ink, and a 7-tier luminance hierarchy that builds structure through darkness alone. Important code is dark; everything else fades. Color is spent only where it carries meaning — vermillion `#a00000` for errors and deletions, yellow `#ffec99` for search and selection.
 
-## Design
+## Variants
+
+Two palettes, same architecture — choose the ink:
 
 ```
-T1  #c0c0c0  ░░░░░░░░░░                     gutter, line numbers
-T2  #6e6e6e  ░░░░░░░░░░░░░░                 comments (WCAG AA)
-T3  #4a4a4a  ░░░░░░░░░░░░░░░░               operators, brackets
-T4  #3a3a3a  ░░░░░░░░░░░░░░░░░░             strings, numbers
-T5  #2e2e2e  ░░░░░░░░░░░░░░░░░░░░░░         variables, properties
-T6  #1a1a1a  ░░░░░░░░░░░░░░░░░░░░░░░░░░     keywords, types
-T7  #000000  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░   functions, foreground
+coffee  — warm "black coffee" ink (#2d1c0b), a whisper of warmth in every tier
+tufte   — off-black ink (#111111), Tufte-CSS canonical, closest to ink-on-paper
 ```
 
-Bold is reserved for structural elements: functions, keywords, types. Comments are italic. Brackets fade. Your eyes land on what matters.
+```
+       coffee                              tufte
+T1  #d1cdc4  gutter, line numbers      T1  #cfcfca
+T2  #857b6f  comments                  T2  #7c7c79
+T3  #6c6052  operators, brackets       T3  #5d5d5b
+T4  #5d5042  strings, numbers          T4  #4a4a48
+T5  #514333  variables, properties     T5  #3c3c3b
+T6  #403020  keywords, types           T6  #292928
+T7  #2d1c0b  functions, foreground     T7  #111111
+```
+
+Both sit on `#fffff8` paper, accented by vermillion `#a00000` and highlighted with `#ffec99`.
+
+Bold is reserved for structural elements: functions, keywords, types. Comments are italic. Your eyes land on what matters.
 
 ## Install
 
@@ -24,12 +34,12 @@ Bold is reserved for structural elements: functions, keywords, types. Comments a
 
 ```lua
 {
-  "bjarneo/white.nvim",
+  "tufte.nvim",
   lazy = false,
   priority = 1000,
   config = function()
-    require("white").setup()
-    vim.cmd.colorscheme("white")
+    require("tufte").setup({ variant = "coffee" })
+    vim.cmd.colorscheme("tufte")
   end,
 }
 ```
@@ -37,7 +47,8 @@ Bold is reserved for structural elements: functions, keywords, types. Comments a
 ## Configuration
 
 ```lua
-require("white").setup({
+require("tufte").setup({
+  variant = "coffee", -- "coffee" (warm ink) or "tufte" (off-black)
   transparent = false,
   styles = {
     comments = { italic = true },
@@ -71,4 +82,4 @@ The lualine theme loads automatically when you set the colorscheme.
 
 ## License
 
-MIT
+MIT — a fork of [white.nvim](https://github.com/bjarneo/white.nvim).

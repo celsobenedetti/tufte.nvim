@@ -1,0 +1,24 @@
+-- Tufte variant — creamy paper, off-black ink (Tufte-CSS canonical).
+--
+-- The most literal reading of the source note: text = #111111 exactly, the
+-- ramp only faintly warmed. Closest to ink-on-paper, maximally restrained.
+-- Values generated in the prototype (prototype/tufte-colors.html, variant C).
+--
+-- tiers: T1 faint chrome -> T7 focus. Contrast vs bg (WCAG):
+--   T1 1.56  T2 4.17  T3 6.57  T4 8.84  T5 11.00  T6 14.50  T7 18.80
+--
+---@type tufte.Palette
+return {
+  bg = "#fffff8", -- creamy off-white paper
+  tiers = {
+    "#cfcfca", -- T1 faint chrome: gutter, line numbers
+    "#7c7c79", -- T2 comments
+    "#5d5d5b", -- T3 operators, punctuation, hints
+    "#4a4a48", -- T4 strings, numbers, secondary data
+    "#3c3c3b", -- T5 variables, properties, constructors
+    "#292928", -- T6 types, statements, titles
+    "#111111", -- T7 functions, keywords, main foreground (off-black)
+  },
+  accent = "#a00000", -- vermillion: errors, deletions only (rare, sparing)
+  highlight = "#ffec99", -- yellow: search, selection, todo
+}
