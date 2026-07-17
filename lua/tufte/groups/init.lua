@@ -21,6 +21,7 @@ M.plugins = {
   ["which-key.nvim"] = "which-key",
   ["todo-comments.nvim"] = "todo-comments",
   ["bufferline.nvim"] = "bufferline",
+  ["dropbar.nvim"] = "dropbar",
   ["render-markdown.nvim"] = "render-markdown",
 }
 
