@@ -1,19 +1,24 @@
 <!doctype html>
 <!--
-  PROTOTYPE — throwaway. Answers: "what does the tufte.nvim coffee gradient look like,
-  and which anchor/tint philosophy reads as 'paper & coffee' instead of 'gray'?"
+  PROTOTYPE — throwaway. Answers: "what does the tufte.nvim palette look like?"
 
-  5 variants switchable via ?variant=A..E and the floating bottom bar (← →, or arrow keys).
-  Each renders the SAME mock Neovim editor at the SAME token→tier mapping, so only the
-  palette philosophy differs. Nothing here ships — the winner folds into lua/tufte/colors.
+  Switches between palette variants (defined in lua/tufte/palettes/ and
+  compiled to CSS by make-prototype.sh) via the floating bottom bar or
+  arrow keys.  Each renders the SAME mock Neovim editor at the SAME
+  token→tier mapping, so only the palette colours differ.
 
-  Run: open this file in a browser, e.g.  xdg-open prototype/tufte-colors.html
+  Regenerate the palette CSS:
+    cd prototype && ./make-prototype.sh
+
+  Run:
+    open this file in a browser, e.g.  xdg-open prototype/tufte-colors.html
 -->
 <html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>tufte.nvim — palette prototype</title>
+<link rel="stylesheet" href="palettes.css" />
 <style>
   * { box-sizing: border-box; }
   html, body { margin: 0; height: 100%; }
@@ -22,15 +27,15 @@
     font-size: 15px;
     line-height: 1.55;
     background: var(--wallpaper, #e9e6da);
-    color: #333;
+    color: var(--t7, #333);
     padding: 28px 28px 96px;
     transition: background .2s;
   }
   .meta { max-width: 980px; margin: 0 auto 18px; font-family: Georgia, "Times New Roman", serif; }
   .meta h1 { font-size: 20px; margin: 0 0 2px; letter-spacing: .3px; }
-  .meta .sub { color: #666; font-size: 14px; }
-  .meta .desc { margin-top: 10px; font-size: 14px; color: #444; max-width: 720px; }
-  .meta .desc b { color: #111; }
+  .meta .sub { color: var(--t4, #666); font-size: 14px; }
+  .meta .desc { margin-top: 10px; font-size: 14px; color: var(--t5, #444); max-width: 720px; }
+  .meta .desc b { color: var(--t7); }
 
   /* ---- editor frame ---- */
   .editor {
@@ -39,6 +44,11 @@
     box-shadow: 0 10px 40px rgba(0,0,0,.14), 0 2px 8px rgba(0,0,0,.08);
     background: var(--bg);
     color: var(--t7);
+
+    --bg-dark: color-mix(in srgb, var(--bg), var(--t6) 5%);
+    --bg-gutter: color-mix(in srgb, var(--bg), var(--t6) 2.5%);
+    --rule: color-mix(in srgb, var(--bg), var(--t6) 10%);
+    --cursorline: color-mix(in srgb, var(--bg), var(--t6) 5%);
   }
   .titlebar {
     display: flex; align-items: center; gap: 8px;
@@ -68,7 +78,7 @@
   .line { display: block; }
   .line.cursor { background: var(--cursorline); margin: 0 -18px; padding: 0 18px; }
 
-  /* token → luminance tier mapping (mirrors lua/*/colors/init.lua) */
+  /* token → luminance tier mapping (mirrors lua/tufte/colors/init.lua) */
   .cmt  { color: var(--t2); font-style: italic; }   /* T2 comments */
   .op   { color: var(--t3); }                        /* T3 operators / punctuation */
   .str  { color: var(--t4); }                        /* T4 strings */
@@ -162,134 +172,135 @@
   </div>
 
 <script>
-// ---------- palette machinery ----------
-const hex2rgb = h => { h = h.replace('#',''); return [0,2,4].map(i => parseInt(h.slice(i,i+2),16)); };
-const rgb2hex = ([r,g,b]) => '#' + [r,g,b].map(x => Math.max(0,Math.min(255,Math.round(x))).toString(16).padStart(2,'0')).join('');
-const lerp = (a,b,t) => a + (b-a)*t;
-const mix = (c1,c2,t) => { const a=hex2rgb(c1), b=hex2rgb(c2); return rgb2hex([0,1,2].map(i=>lerp(a[i],b[i],t))); };
-// push a color's hue toward a warm coffee tone by `amt` (0..1), preserving luminance-ish
-function warmify(hexc, amt){
-  const [r,g,b] = hex2rgb(hexc);
-  const L = 0.299*r + 0.587*g + 0.114*b;      // rough luma
-  // warm target at this luma: R>G>B tilt toward coffee
-  const wr = L + 14*amt, wg = L - 2*amt, wb = L - 20*amt;
-  return rgb2hex([lerp(r,wr,amt), lerp(g,wg,amt), lerp(b,wb,amt)]);
-}
-// build a 7-tier ramp by blending bg->fg at fixed lightness stops, then warmth boost
-// stops tuned so T2 (comments) lands ~AA and T7 == fg
-const STOPS = [0.20, 0.55, 0.68, 0.76, 0.82, 0.90, 1.0];
-function ramp(bg, fg, warmth, stops){
-  return (stops || STOPS).map((t,i) => {
-    let c = mix(bg, fg, t);
-    // warm the mid-tones most, leave the darkest anchor honest
-    const midBoost = warmth * (1 - Math.abs(t - 0.6)*0.8);
-    return warmify(c, Math.max(0, midBoost));
-  });
-}
-
-const CREAM = '#fffff8';
-const COFFEE = '#241401';       // original black-coffee anchor
-const COFFEE_LT = '#2e1c0a';    // lightened coffee — a gentle lift, still inky
-const OFFBLACK = '#111111';
-const VERM = '#a00000';
-const YELLOW = '#ffec99';
-
-// B's stops, nudged toward canonical's default so the two ramps nearly align
-// canonical: [0.20, 0.55, 0.68, 0.76, 0.82, 0.90, 1.0]
-const B_STOPS = [0.22, 0.58, 0.70, 0.77, 0.83, 0.91, 1.0];
-
-const VARIANTS = {
-  B: {
-    name: 'Subtle coffee (v3)',
-    desc: 'A <b>whisper</b> of coffee over canonical: warmth dialed down (0.12 → 0.07) and stops pulled to nearly match C, so T1–T7 track the off-black ramp closely — the only tell is a faint warm cast. Coffee fg <b>#2e1c0a</b>.',
-    bg: CREAM, fg: COFFEE_LT, tiers: ramp(CREAM, COFFEE_LT, 0.07, B_STOPS),
-    accent: VERM, highlight: YELLOW, wallpaper: '#e6e1d2',
-  },
-  C: {
+// ---------- palette metadata (names + descriptions — static) ----------
+const PALETTE_META = {
+  tufte: {
     name: 'Off-black (Tufte-CSS canonical)',
-    desc: 'Text = #111111 exactly per the Tufte-CSS spec, gradient only lightly warmed. The most literal reading of the source note — restrained, closest to ink-on-paper.',
-    bg: CREAM, fg: OFFBLACK, tiers: ramp(CREAM, OFFBLACK, 0.06),
-    accent: VERM, highlight: YELLOW, wallpaper: '#e8e5da',
+    desc: 'Text = <b>#111111</b> exactly per the Tufte-CSS spec, the seven'
+       + ' tiers a cool-neutral gray ramp.  The most literal reading of the'
+       + ' source note — restrained, closest to ink-on-paper.',
+    fg_comment: 'off-black ink',
+  },
+  coffee: {
+    name: 'Black-coffee ink (warm variant)',
+    desc: 'A whisper of warmth over the canonical ramp: the seven tiers'
+       + ' blend cream into <b>#2d1c0b</b> (black coffee) with mid-tones'
+       + ' nudged warm, so grays read as coffee, not gray.',
+    fg_comment: 'black coffee ink',
   },
 };
 
-// ---------- code sample (Lua, mirrors the real file) ----------
-// token classes: cmt op str num var typ fn kw fg accent sel
-const LINES = [
-  {n:1,  html:`<span class="kw">local</span> <span class="var">Util</span> <span class="op">=</span> <span class="fn">require</span><span class="op">(</span><span class="str">"tufte.utils"</span><span class="op">)</span>`},
-  {n:2,  html:``},
-  {n:3,  html:`<span class="cmt">--- The seven luminance tiers: T1 faint chrome → T7 focus</span>`},
-  {n:4,  html:`<span class="kw">local</span> <span class="var">palette</span> <span class="op">=</span> <span class="op">{</span>`},
-  {n:5,  html:`  <span class="var">bg</span>    <span class="op">=</span> <span class="str">"#fffff8"</span><span class="op">,</span>  <span class="cmt">-- creamy off-white paper</span>`},
-  {n:6,  html:`  <span class="var">fg</span>    <span class="op">=</span> <span class="str">"#241401"</span><span class="op">,</span>  <span class="cmt">-- black coffee ink</span>`, sign:'add'},
-  {n:7,  html:`  <span class="var">accent</span> <span class="op">=</span> <span class="accent">"#a00000"</span><span class="op">,</span> <span class="cmt">-- vermillion, used sparingly</span>`, sign:'add'},
-  {n:8,  html:`  <span class="var">tiers</span> <span class="op">=</span> <span class="fn">gradient</span><span class="op">(</span><span class="var">bg</span><span class="op">,</span> <span class="var">fg</span><span class="op">,</span> <span class="num">7</span><span class="op">)</span><span class="op">,</span>`},
-  {n:9,  html:`<span class="op">}</span>`},
-  {n:10, html:``},
-  {n:11, html:`<span class="cmt">--- Map a syntax group onto a tier by prominence.</span>`},
-  {n:12, html:`<span class="kw">function</span> <span class="typ">M</span><span class="op">.</span><span class="fn">setup</span><span class="op">(</span><span class="var">opts</span><span class="op">)</span>`, cursor:true},
-  {n:13, html:`  <span class="kw">local</span> <span class="var">c</span> <span class="op">=</span> <span class="var">vim</span><span class="op">.</span><span class="fn">tbl_extend</span><span class="op">(</span><span class="str">"force"</span><span class="op">,</span> <span class="var">palette</span><span class="op">,</span> <span class="var">opts</span><span class="op">)</span>`},
-  {n:14, html:`  <span class="typ">Comment</span> <span class="op">=</span> <span class="op">{</span> <span class="var">fg</span> <span class="op">=</span> <span class="var">c</span><span class="op">.</span><span class="var">tiers</span><span class="op">[</span><span class="num">2</span><span class="op">]</span><span class="op">,</span> <span class="var">italic</span> <span class="op">=</span> <span class="kw">true</span> <span class="op">}</span>`},
-  {n:15, html:`  <span class="typ">Function</span> <span class="op">=</span> <span class="op">{</span> <span class="var">fg</span> <span class="op">=</span> <span class="var">c</span><span class="op">.</span><span class="var">tiers</span><span class="op">[</span><span class="num">7</span><span class="op">]</span> <span class="op">}</span>`},
-  {n:16, html:`  <span class="kw">return</span> <span class="fn">apply</span><span class="op">(</span><span class="sel">c, opts.groups</span><span class="op">)</span>`, diag:'unused local `c` — shadows line 13'},
-  {n:17, html:`<span class="kw">end</span>`},
-];
+// ---------- read current palette colours from CSS variables ----------
+function getPaletteColors() {
+  const s = getComputedStyle(document.documentElement);
+  const get = (n) => s.getPropertyValue(n).trim();
+  return {
+    bg: get('--bg'),
+    tiers: [1, 2, 3, 4, 5, 6, 7].map((i) => get('--t' + i)),
+    accent: get('--accent'),
+    highlight: get('--highlight'),
+    wallpaper: get('--wallpaper'),
+  };
+}
+
+// ---------- code sample builder (token classes: cmt op str num var typ fn kw accent) ----------
+// Builds the palette object + a mock setup function with a spurious lint diagnostic.
+function buildLines(colors, meta) {
+  const t = colors.tiers;
+  // The line where `local c` is declared (needed for the diagnostic message)
+  const cLine = 20;
+  return [
+    {n:1,  html:`<span class="cmt">--- The seven luminance tiers: T1 faint chrome → T7 focus</span>`},
+    {n:2,  html:`<span class="kw">local</span> <span class="var">palette</span> <span class="op">=</span> <span class="op">{</span>`},
+    {n:3,  html:`  <span class="var">bg</span>    <span class="op">=</span> <span class="str">"${colors.bg}"</span><span class="op">,</span>  <span class="cmt">-- creamy off-white paper</span>`},
+    {n:4,  html:`  <span class="var">fg</span>    <span class="op">=</span> <span class="str">"${t[6]}"</span><span class="op">,</span>  <span class="cmt">-- ${meta.fg_comment}</span>`},
+    {n:5,  html:`  <span class="var">accent</span> <span class="op">=</span> <span class="accent">"${colors.accent}"</span><span class="op">,</span> <span class="cmt">-- vermillion, used sparingly</span>`},
+    {n:6,  html:`  <span class="var">highlight</span> <span class="op">=</span> <span class="str">"${colors.highlight}"</span><span class="op">,</span> <span class="cmt">-- yellow: search, selection, todo</span>`},
+    {n:7,  html:`  <span class="var">tiers</span> <span class="op">=</span> <span class="op">{</span>`},
+    {n:8,  html:`    <span class="str">"${t[0]}"</span><span class="op">,</span> <span class="cmt">-- T1 faint chrome: gutter, line numbers</span>`},
+    {n:9,  html:`    <span class="str">"${t[1]}"</span><span class="op">,</span> <span class="cmt">-- T2 comments</span>`},
+    {n:10, html:`    <span class="str">"${t[2]}"</span><span class="op">,</span> <span class="cmt">-- T3 operators, punctuation, hints</span>`},
+    {n:11, html:`    <span class="str">"${t[3]}"</span><span class="op">,</span> <span class="cmt">-- T4 strings, numbers, secondary data</span>`},
+    {n:12, html:`    <span class="str">"${t[4]}"</span><span class="op">,</span> <span class="cmt">-- T5 variables, properties, constructors</span>`},
+    {n:13, html:`    <span class="str">"${t[5]}"</span><span class="op">,</span> <span class="cmt">-- T6 types, statements, titles</span>`},
+    {n:14, html:`    <span class="str">"${t[6]}"</span><span class="op">,</span> <span class="cmt">-- T7 functions, keywords (main fg)</span>`},
+    {n:15, html:`  <span class="op">},</span>`},
+    {n:16, html:`<span class="op">}</span>`},
+    {n:17, html:``},
+    {n:18, html:`<span class="cmt">--- Map a syntax group onto a tier by prominence.</span>`},
+    {n:19, html:`<span class="kw">function</span> <span class="typ">M</span><span class="op">.</span><span class="fn">setup</span><span class="op">(</span><span class="var">opts</span><span class="op">)</span>`, cursor:true},
+    {n:20, html:`  <span class="kw">local</span> <span class="var">c</span> <span class="op">=</span> <span class="var">vim</span><span class="op">.</span><span class="fn">tbl_extend</span><span class="op">(</span><span class="str">"force"</span><span class="op">,</span> <span class="var">palette</span><span class="op">,</span> <span class="var">opts</span><span class="op">)</span>`},
+    {n:21, html:`  <span class="typ">Comment</span> <span class="op">=</span> <span class="op">{</span> <span class="var">fg</span> <span class="op">=</span> <span class="var">c</span><span class="op">.</span><span class="var">tiers</span><span class="op">[</span><span class="num">2</span><span class="op">]</span><span class="op">,</span> <span class="var">italic</span> <span class="op">=</span> <span class="kw">true</span> <span class="op">}</span>`},
+    {n:22, html:`  <span class="typ">Function</span> <span class="op">=</span> <span class="op">{</span> <span class="var">fg</span> <span class="op">=</span> <span class="var">c</span><span class="op">.</span><span class="var">tiers</span><span class="op">[</span><span class="num">7</span><span class="op">]</span> <span class="op">}</span>`},
+    {n:23, html:`  <span class="kw">return</span> <span class="fn">apply</span><span class="op">(</span><span class="sel">c, opts.groups</span><span class="op">)</span>`, diag:'unused local `c` — shadows line ' + cLine},
+    {n:24, html:`<span class="kw">end</span>`},
+  ];
+}
+
+// token classes (same) also used in the ramp swatches
+const LABELS = ['T1 chrome','T2 comment','T3 punct','T4 string','T5 var','T6 type','T7 focus'];
 
 // ---------- render ----------
-function render(key){
-  const v = VARIANTS[key];
-  const root = document.documentElement;
-  const t = v.tiers;
-  const S = document.getElementById('editor').style;
-  S.setProperty('--bg', v.bg);
-  S.setProperty('--bg-dark', mix(v.bg, t[6], 0.05));
-  S.setProperty('--bg-gutter', mix(v.bg, t[6], 0.025));
-  S.setProperty('--rule', mix(v.bg, t[6], 0.10));
-  S.setProperty('--cursorline', mix(v.bg, t[6], 0.05));
-  S.setProperty('--highlight', v.highlight);
-  S.setProperty('--accent', v.accent);
-  t.forEach((c,i) => S.setProperty('--t'+(i+1), c));
-  document.body.style.setProperty('--wallpaper', v.wallpaper);
+function render(key) {
+  const v = PALETTE_META[key];
+  if (!v) return;
+
+  // Switch palette via CSS class
+  document.documentElement.className = 'palette-' + key;
+
+  // Read the active palette's colours from CSS variables
+  const colors = getPaletteColors();
+  const t = colors.tiers;
+
+  // Build lines from the current palette
+  const lines = buildLines(colors, v);
 
   // gutter
-  const g = LINES.map(l => {
-    let cls = l.cursor ? 'cur' : '';
-    let mark = '  ';
-    if (l.sign === 'add') { mark = '┃ '; cls += ' sign-add'; }
-    if (l.sign === 'del') { mark = '┃ '; cls += ' sign-del'; }
-    return `<span class="${cls}">${mark}${String(l.n).padStart(2,' ')}</span>`;
+  const g = lines.map(l => {
+    const cls = l.cursor ? 'cur' : '';
+    return `<span class="${cls}">  ${String(l.n).padStart(2,' ')}</span>`;
   }).join('\n');
   document.getElementById('gutter').innerHTML = g;
 
   // source
-  const src = LINES.map(l => {
+  const src = lines.map(l => {
     const diag = l.diag ? `<span class="diag">◆ ${l.diag}</span>` : '';
     return `<span class="line ${l.cursor?'cursor':''}">${l.html || ' '}${diag}</span>`;
   }).join('');
   document.getElementById('src').innerHTML = src;
 
   // ramp swatches
-  const labels = ['T1 chrome','T2 comment','T3 punct','T4 string','T5 var','T6 type','T7 focus'];
-  document.getElementById('ramp').innerHTML = t.map((c,i) => {
-    const textc = i >= 3 ? v.bg : t[6];
+  document.getElementById('ramp').innerHTML = t.map((c, i) => {
+    const textc = i >= 3 ? colors.bg : t[6];
     return `<div class="chip" style="background:${c};color:${textc}">
-      <span class="lab">${labels[i]}</span><span class="hex">${c}</span></div>`;
-  }).join('') + `<div class="chip" style="background:${v.accent};color:${v.bg}">
-      <span class="lab">accent</span><span class="hex">${v.accent}</span></div>`;
+      <span class="lab">${LABELS[i]}</span><span class="hex">${c}</span></div>`;
+  }).join('') + `<div class="chip" style="background:${colors.accent};color:${colors.bg}">
+      <span class="lab">accent</span><span class="hex">${colors.accent}</span></div>`;
 
   // meta
   document.getElementById('v-title').textContent = 'tufte.nvim — ' + v.name;
-  document.getElementById('v-sub').textContent = `bg ${v.bg}  ·  fg ${v.fg}  ·  accent ${v.accent}  ·  highlight ${v.highlight}`;
+  document.getElementById('v-sub').textContent = `bg ${colors.bg}  ·  fg ${t[6]}  ·  accent ${colors.accent}  ·  highlight ${colors.highlight}`;
   document.getElementById('v-desc').innerHTML = v.desc;
-  document.getElementById('k').textContent = key;
+  document.getElementById('k').textContent = key.toUpperCase();
   document.getElementById('name').textContent = ' ' + v.name;
 }
 
 // ---------- switcher ----------
-const KEYS = Object.keys(VARIANTS);
-const getV = () => { const p = new URLSearchParams(location.search).get('variant'); return KEYS.includes(p) ? p : KEYS[0]; };
-function go(key){ const u = new URL(location); u.searchParams.set('variant', key); history.replaceState(null,'',u); render(key); }
-function step(d){ const i = KEYS.indexOf(getV()); go(KEYS[(i + d + KEYS.length) % KEYS.length]); }
+const KEYS = Object.keys(PALETTE_META);
+const getV = () => {
+  const p = new URLSearchParams(location.search).get('variant');
+  return KEYS.includes(p) ? p : KEYS[0];
+};
+function go(key) {
+  const u = new URL(location);
+  u.searchParams.set('variant', key);
+  history.replaceState(null, '', u);
+  render(key);
+}
+function step(d) {
+  const i = KEYS.indexOf(getV());
+  go(KEYS[(i + d + KEYS.length) % KEYS.length]);
+}
 document.getElementById('prev').onclick = () => step(-1);
 document.getElementById('next').onclick = () => step(1);
 document.addEventListener('keydown', e => {
