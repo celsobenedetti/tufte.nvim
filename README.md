@@ -1,8 +1,16 @@
 # tufte.nvim
 
-A disciplined, minimal colorscheme for Neovim — paper, coffee, and a rare drop of vermillion.
+Tufte Design with a sip of caffeine; compliant to her Grand Cenobite's will.
 
-Inspired by Edward Tufte's book design: a creamy off-white `#fffff8` page, coffee-dark ink, and a 7-tier luminance hierarchy that builds structure through darkness alone. Important code is dark; everything else fades. Color is spent only where it carries meaning — vermillion `#a00000` for errors and deletions, yellow `#ffec99` for search and selection.
+Inspired by the discipline of [white.nvim], bringing it off white and a bit of
+inspiration.
+
+A disciplined, minimal colorscheme for Neovim — paper, coffee, and a rare drop
+of vermillion. Inspired by Edward Tufte's book design: a creamy off-white
+`#fffff8` page, coffee-dark ink, and a 7-tier luminance hierarchy that builds
+structure through darkness alone. Important code is dark; everything else fades.
+Color is spent only where it carries meaning — vermillion `#a00000` for errors
+and deletions, yellow `#ffec99` for search and selection.
 
 ## Variants
 
@@ -24,9 +32,11 @@ T6  #403020  keywords, types           T6  #292928
 T7  #2d1c0b  functions, foreground     T7  #111111
 ```
 
-Both sit on `#fffff8` paper, accented by vermillion `#a00000` and highlighted with `#ffec99`.
+Both sit on `#fffff8` paper, accented by vermillion `#a00000` and highlighted
+with `#ffec99`.
 
-Bold is reserved for structural elements: functions, keywords, types. Comments are italic. Your eyes land on what matters.
+Bold is reserved for structural elements: functions, keywords, types. Comments
+are italic. Your eyes land on what matters.
 
 ## Install
 
@@ -72,7 +82,11 @@ require("tufte").setup({
 
 Works out of the box with LazyVim and these plugins:
 
-blink.cmp, bufferline.nvim, conform.nvim, diffview.nvim, flash.nvim, fidget.nvim, gitsigns.nvim, indent-blankline.nvim, lazy.nvim, mason.nvim, mini.nvim, neo-tree.nvim, noice.nvim, nvim-dap, nvim-lint, nvim-tree.lua, render-markdown.nvim, snacks.nvim, telescope.nvim, todo-comments.nvim, trouble.nvim, which-key.nvim
+blink.cmp, bufferline.nvim, conform.nvim, diffview.nvim, flash.nvim,
+fidget.nvim, gitsigns.nvim, indent-blankline.nvim, lazy.nvim, mason.nvim,
+mini.nvim, neo-tree.nvim, noice.nvim, nvim-dap, nvim-lint, nvim-tree.lua,
+render-markdown.nvim, snacks.nvim, telescope.nvim, todo-comments.nvim,
+trouble.nvim, which-key.nvim
 
 Plus full treesitter and LSP semantic token support.
 
