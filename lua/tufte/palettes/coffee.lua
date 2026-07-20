@@ -23,5 +23,5 @@ return {
 	},
 	accent = "#a00000", -- vermillion: errors, deletions only (rare, sparing)
 	highlight = "#ffec99", -- yellow: search, selection, todo
-	secondary = "#10554f", -- verdigris: Special, function calls (a patinated-copper teal, warmed with coffee ink so it sits in the same family as the ramp)
+	secondary = "#5A4D31", -- verdigris: Special, function calls (a patinated-copper teal, warmed with coffee ink so it sits in the same family as the ramp)
 }
