@@ -1,0 +1,73 @@
+-- codediff.nvim support for tufte colorscheme
+local Util = require("tufte.utils")
+
+local M = {}
+
+---@type tufte.HighlightsFn
+function M.get(c, opts)
+	local line_insert = "#d0ffd0"
+	local line_delete = "#ffd7d7"
+	local char_insert = "#afffaf"
+	-- local char_delete = Util.blend("#111111", 0.1, "#ffd7d7")
+
+	-- codediff.nvim re-derives CodeDiffLine/CharInsert/Delete from its own
+	-- `highlights` config (default: read off DiffAdd/DiffDelete) every time its
+	-- setup() runs or `ColorScheme` fires, without a `default = true` guard —
+	-- so it clobbers plain nvim_set_hl() calls made for those groups here.
+	-- Push our colors through its own config instead, so it always resolves to
+	-- what we want regardless of load order, then force an immediate re-derive.
+	local ok_config, cd_config = pcall(require, "codediff.config")
+	if ok_config then
+		cd_config.options.highlights.line_insert = line_insert
+		cd_config.options.highlights.line_delete = line_delete
+		cd_config.options.highlights.char_insert = char_insert
+		-- cd_config.options.highlights.char_delete = char_delete
+
+		local ok_hl, cd_highlights = pcall(require, "codediff.ui.highlights")
+		if ok_hl then
+			cd_highlights.setup()
+		end
+	end
+
+  -- stylua: ignore
+  return {
+    -- Line-level add/remove (same wash used by DiffAdd/DiffDelete)
+    CodeDiffLineInsert          = { bg = line_insert },
+    CodeDiffLineDelete          = { bg = line_delete },
+
+    -- Char-level add/remove: same hue, stronger blend so the intra-line
+    -- change reads clearly against the line-level wash
+    CodeDiffCharInsert          = { bg = char_insert },
+    CodeDiffCharDelete          = { link = "diffRemoved"  },
+
+    -- Moved blocks stay on the blue tier, distinct from add/remove
+    CodeDiffLineMove            = { bg = c.diff.change },
+    CodeDiffCharMove            = { bg = Util.blend_bg(c.blue7, 0.35) },
+    CodeDiffMoveFrom            = { fg = c.blue },
+    CodeDiffMoveTo              = { fg = c.blue },
+
+    CodeDiffFiller              = { fg = c.dark3 },
+
+    -- Explorer / status panel
+    CodeDiffStatusAdded         = { fg = c.git.add },
+    CodeDiffStatusModified      = { fg = c.git.change },
+    CodeDiffStatusDeleted       = { fg = c.git.delete },
+    CodeDiffStatusRenamed       = { fg = c.info },
+    CodeDiffStatusUntracked     = { fg = c.info },
+    CodeDiffStatusConflict      = { fg = c.error },
+    CodeDiffExplorerSelected    = { link = "Visual" },
+    CodeDiffExplorerTreeGroup   = { link = "Directory" },
+    ExplorerDirectorySmall      = { link = "Comment" },
+    NeoTreeIndentMarker         = { link = "Comment" },
+
+    -- Merge conflict signs
+    CodeDiffConflictSign         = { fg = c.warning },
+    CodeDiffConflictSignResolved = { link = "Comment" },
+    CodeDiffConflictSignAccepted = { fg = c.git.add },
+    CodeDiffConflictSignRejected = { fg = c.git.delete },
+
+    CodeDiffHistoryTitle        = { link = "FloatTitle" },
+  }
+end
+
+return M
