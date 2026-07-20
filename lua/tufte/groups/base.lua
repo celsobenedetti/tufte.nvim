@@ -61,7 +61,7 @@ function M.get(c, opts)
     StatusLine                  = { fg = c.fg_sidebar, bg = c.bg },
     StatusLineNC                = { fg = c.fg_gutter, bg = c.bg },
     TabLine                     = { bg = c.bg_statusline, fg = c.fg_gutter },
-    TabLineFill                 = { bg = c.black },
+    TabLineFill                 = { bg = c.bg },
     TabLineSel                  = { fg = c.black, bg = c.blue },
     Title                       = { fg = c.blue, bold = true },
     Visual                      = { bg = c.bg_visual },

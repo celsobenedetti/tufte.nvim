@@ -144,7 +144,7 @@ function M.setup(opts)
 
 	-- Subtle blended backgrounds
 	colors.subtle_bg = Util.blend_bg(colors.fg, 0.06)
-	colors.cursorline_bg = Util.blend_bg(colors.fg, 0.05)
+	colors.cursorline_bg = colors.fg_gutter -- T1 faint chrome (coffee: #d1cdc4)
 	colors.selection_bg = Util.blend_bg(colors.fg, 0.12)
 	colors.float_bg = Util.blend_bg(colors.fg, 0.04)
 
