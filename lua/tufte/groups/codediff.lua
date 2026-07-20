@@ -23,6 +23,12 @@ function M.get(c, opts)
 		cd_config.options.highlights.char_insert = char_insert
 		-- cd_config.options.highlights.char_delete = char_delete
 
+		-- Treesitter captures (e.g. @markup.raw.markdown_inline) sit at priority
+		-- 100 too, and can render on top of codediff's extmarks depending on
+		-- application order. Push codediff above them so diff highlights always
+		-- win.
+		cd_config.options.diff.highlight_priority = 200
+
 		local ok_hl, cd_highlights = pcall(require, "codediff.ui.highlights")
 		if ok_hl then
 			cd_highlights.setup()
