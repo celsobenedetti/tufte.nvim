@@ -11,7 +11,7 @@
 --
 ---@type tufte.Palette
 return {
-	bg = "#fffff8", -- creamy off-white paper
+	bg = "#fffcf0", -- creamy off-white paper
 	tiers = {
 		"#d1cdc4", -- T1 faint chrome: gutter, line numbers
 		"#857b6f", -- T2 comments
