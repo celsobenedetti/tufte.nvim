@@ -137,6 +137,12 @@ function M.get(c, opts)
     healthWarning               = { fg = c.warning },
 
     -- Git
+    -- diff add/remove/change washes come from colors.diff (see colors/init.lua)
+    -- so DiffAdd/DiffDelete/DiffText above, these, and codediff.nvim's groups
+    -- all agree. Vim's stock syntax/diff.vim (included by vim-fugitive) uses
+    -- exactly these group names for its diffAdded/diffRemoved/diffChanged
+    -- syntax matches, so :Gdiff/:Git diff buffers and expanded :Git status
+    -- hunks pick this up for free.
     diffAdded                   = { bg = c.diff.add, fg = c.git.add },
     diffRemoved                 = { bg = c.diff.delete, fg = c.git.delete },
     diffChanged                 = { bg = c.diff.change, fg = c.git.change },

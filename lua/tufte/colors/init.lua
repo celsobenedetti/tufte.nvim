@@ -2,12 +2,19 @@ local Util = require("tufte.utils")
 
 local M = {}
 
+---@class tufte.PaletteDiff
+---@field add string -- line-level add background
+---@field delete string -- line-level delete background
+---@field add_char string -- char-level add emphasis
+---@field delete_char string -- char-level delete emphasis
+
 ---@class tufte.Palette
 ---@field bg string
 ---@field tiers string[] -- 7 entries, T1 faint chrome -> T7 focus
 ---@field accent string  -- vermillion, used sparingly
 ---@field highlight string -- yellow highlight
 ---@field secondary string -- Special, function calls
+---@field diff tufte.PaletteDiff -- standard diff add/remove colors
 
 ---@param variant string
 ---@return tufte.Palette
@@ -107,9 +114,18 @@ function M.setup(opts)
 	colors.git.delete = colors.red1
 	colors.git.change = colors.orange
 
+	-- Diff add/remove convention: every diff-add/diff-remove highlight group
+	-- across the colorscheme (native Diff*/diff*, gitsigns, codediff.nvim,
+	-- vim-fugitive via stock diff.vim and its terminal patch prompts)
+	-- resolves to these four standard colors, declared per-palette (see
+	-- palettes/*.lua). `add`/`delete` are the line-level background;
+	-- `add_char`/`delete_char` are a more saturated version of the same hue
+	-- for intra-line (char-level) emphasis on top of that background.
 	colors.diff = {
-		add = Util.blend_bg(colors.green2, 0.25),
-		delete = Util.blend_bg(colors.red1, 0.25),
+		add = palette.diff.add,
+		delete = palette.diff.delete,
+		add_char = palette.diff.add_char,
+		delete_char = palette.diff.delete_char,
 		change = Util.blend_bg(colors.blue7, 0.15),
 		text = colors.blue7,
 	}
@@ -159,22 +175,35 @@ function M.setup(opts)
 		colors.red,
 	}
 
-	-- Terminal colors: monochrome tiers, with the one accent on red.
+	-- Terminal colors for `:terminal` buffers (incl. vim-fugitive's `-p`
+	-- patch prompts, which run through a real terminal, not Vim syntax
+	-- highlighting — see groups/base.lua's diff comment).
+	--
+	-- These are real, distinguishable hues, NOT the editor's syntax tiers.
+	-- The syntax palette intentionally desaturates "green"/"cyan"/etc. into
+	-- grayscale luminance tiers (only errors/deletions get real color, per
+	-- build_palette above) — that's fine for Vim highlighting, but ANSI
+	-- programs (git diff, ls --color, test runners, docker) rely on color
+	-- 2 actually looking green, 3 actually looking yellow, etc. Reusing the
+	-- grayscale tiers there made e.g. `git add -p` additions render as
+	-- indistinguishable-from-plain-text gray. Fixed hex, not palette-derived,
+	-- for the same reason as colors.diff: both variants share the same `bg`.
+	-- Contrast-checked (WCAG) against bg #fffcf0, all >= 4.5:1.
 	colors.terminal = {
 		black = colors.bg,
 		black_bright = colors.terminal_black,
 		red = colors.accent,
 		red_bright = colors.accent,
-		green = colors.green,
-		green_bright = colors.green,
-		yellow = colors.green1,
-		yellow_bright = colors.green1,
-		blue = colors.blue,
-		blue_bright = colors.blue,
-		magenta = colors.magenta,
-		magenta_bright = colors.magenta,
-		cyan = colors.teal,
-		cyan_bright = colors.teal,
+		green = "#2f6f2f",
+		green_bright = "#2f6f2f",
+		yellow = "#8a6d1a",
+		yellow_bright = "#8a6d1a",
+		blue = "#345d8a",
+		blue_bright = "#345d8a",
+		magenta = "#8a3d6e",
+		magenta_bright = "#8a3d6e",
+		cyan = "#1f7a6c",
+		cyan_bright = "#1f7a6c",
 		white = colors.fg,
 		white_bright = colors.fg,
 	}

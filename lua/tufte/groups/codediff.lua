@@ -5,10 +5,12 @@ local M = {}
 
 ---@type tufte.HighlightsFn
 function M.get(c, opts)
-	local line_insert = "#d0ffd0"
-	local line_delete = "#ffd7d7"
-	local char_insert = "#afffaf"
-	-- local char_delete = Util.blend("#111111", 0.1, "#ffd7d7")
+	-- Diff add/remove convention lives in colors/init.lua (colors.diff); this
+	-- module is just one of its consumers.
+	local line_insert = c.diff.add
+	local line_delete = c.diff.delete
+	local char_insert = c.diff.add_char
+	local char_delete = c.diff.delete_char
 
 	-- codediff.nvim re-derives CodeDiffLine/CharInsert/Delete from its own
 	-- `highlights` config (default: read off DiffAdd/DiffDelete) every time its
@@ -21,7 +23,7 @@ function M.get(c, opts)
 		cd_config.options.highlights.line_insert = line_insert
 		cd_config.options.highlights.line_delete = line_delete
 		cd_config.options.highlights.char_insert = char_insert
-		-- cd_config.options.highlights.char_delete = char_delete
+		cd_config.options.highlights.char_delete = char_delete
 
 		-- Treesitter captures (e.g. @markup.raw.markdown_inline) sit at priority
 		-- 100 too, and can render on top of codediff's extmarks depending on
@@ -44,7 +46,7 @@ function M.get(c, opts)
     -- Char-level add/remove: same hue, stronger blend so the intra-line
     -- change reads clearly against the line-level wash
     CodeDiffCharInsert          = { bg = char_insert },
-    CodeDiffCharDelete          = { link = "diffRemoved"  },
+    CodeDiffCharDelete          = { bg = char_delete },
 
     -- Moved blocks stay on the blue tier, distinct from add/remove
     CodeDiffLineMove            = { bg = c.diff.change },

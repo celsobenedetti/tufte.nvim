@@ -18,6 +18,7 @@ M.plugins = {
 	["nvim-tree.lua"] = "nvim-tree",
 	["snacks.nvim"] = "snacks",
 	["telescope.nvim"] = "telescope",
+	["vim-fugitive"] = "git",
 	["trouble.nvim"] = "trouble",
 	["which-key.nvim"] = "which-key",
 	["todo-comments.nvim"] = "todo-comments",

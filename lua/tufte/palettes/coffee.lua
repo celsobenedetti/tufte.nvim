@@ -24,4 +24,15 @@ return {
 	accent = "#a00000", -- vermillion: errors, deletions only (rare, sparing)
 	highlight = "#ffec99", -- yellow: search, selection, todo
 	secondary = "#5A4D31", -- verdigris: Special, function calls (a patinated-copper teal, warmed with coffee ink so it sits in the same family as the ramp)
+
+	-- Standard diff add/remove colors. Every diff-add/diff-remove highlight
+	-- group in the colorscheme (native Diff*/diff*, gitsigns, codediff.nvim,
+	-- vim-fugitive terminal patches) resolves to these four — see the diff
+	-- convention comment in colors/init.lua.
+	diff = {
+		add = "#d0ffd0", -- line-level add background
+		delete = "#ffd7d7", -- line-level delete background
+		add_char = "#afffaf", -- char-level add emphasis (more saturated)
+		delete_char = "#ffb6b6", -- char-level delete emphasis (more saturated)
+	},
 }
