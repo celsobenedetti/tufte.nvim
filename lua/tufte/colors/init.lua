@@ -61,6 +61,7 @@ local function build_palette(p)
 
 		fg = t[7],
 		fg_dark = t[6],
+		fg_lightgray = t[3],
 		fg_gutter = t[1],
 
 		green = t[4], -- strings, characters

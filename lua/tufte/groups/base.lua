@@ -7,7 +7,7 @@ function M.get(c, opts)
   -- stylua: ignore
   return {
     Comment                     = { fg = c.comment, style = opts.styles.comments }, -- any comment
-    ColorColumn                 = { bg = c.black }, -- used for the columns set with 'colorcolumn'
+    ColorColumn                 = { bg = c.cursorline_bg }, -- used for the columns set with 'colorcolumn'
     Conceal                     = { fg = c.dark5 }, -- placeholder characters substituted for concealed text
     Cursor                      = { fg = c.bg, bg = c.fg }, -- character under the cursor
     lCursor                     = { fg = c.bg, bg = c.fg },
@@ -60,7 +60,7 @@ function M.get(c, opts)
     SpellRare                   = { sp = c.hint, undercurl = true },
     StatusLine                  = { fg = c.fg_sidebar, bg = c.bg },
     StatusLineNC                = { fg = c.fg_gutter, bg = c.bg },
-    TabLine                     = { bg = c.bg_statusline, fg = c.fg_gutter },
+    TabLine                     = { bg = c.bg_statusline, fg = c.fg_dark },
     TabLineFill                 = { bg = c.bg },
     TabLineSel                  = { fg = c.black, bg = c.blue },
     Title                       = { fg = c.blue, bold = true },
@@ -70,8 +70,8 @@ function M.get(c, opts)
     Whitespace                  = { fg = c.fg_gutter },
     WildMenu                    = { bg = c.bg_visual },
     WinBar                      = { fg = c.fg_sidebar, bg = c.bg },
-    WinBarNC                    = { fg = c.fg_gutter, bg = c.bg },
-    MsgArea                     = { fg = c.fg_dark, bg = c.bg },
+    WinBarNC                    = { fg = c.fg_lightgray, bg = c.bg },
+    MsgArea                     = { fg = c.fg_lightgray, bg = c.bg },
     Cmdline                     = { fg = c.fg, bg = c.bg },
 
     -- Syntax
