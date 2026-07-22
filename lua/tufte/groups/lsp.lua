@@ -9,6 +9,7 @@ function M.get(c, opts)
   return {
     -- Diagnostics
     DiagnosticError                  = { fg = c.error },
+    DiagnosticSignError              = { fg = c.error },
     DiagnosticWarn                   = { fg = c.warning },
     DiagnosticInfo                   = { fg = c.info },
     DiagnosticHint                   = { fg = c.hint },
