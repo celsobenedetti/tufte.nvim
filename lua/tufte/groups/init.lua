@@ -16,6 +16,7 @@ M.plugins = {
 	["noice.nvim"] = "noice",
 	["nvim-dap"] = "dap",
 	["nvim-tree.lua"] = "nvim-tree",
+	["orgmode"] = "orgmode",
 	["snacks.nvim"] = "snacks",
 	["telescope.nvim"] = "telescope",
 	["vim-fugitive"] = "git",
