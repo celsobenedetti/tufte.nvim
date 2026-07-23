@@ -8,25 +8,9 @@
  *  consumed by tufte-colors.html.
  * ========================================================================== */
 
-/* Coffee variant — creamy paper, warm "black coffee" ink.  */
-:root.palette-coffee {
-  --bg: #fffff8;
-  --t1: #d1cdc4;
-  --t2: #857b6f;
-  --t3: #6c6052;
-  --t4: #5d5042;
-  --t5: #514333;
-  --t6: #403020;
-  --t7: #2d1c0b;
-  --accent: #a00000;
-  --highlight: #ffec99;
-  --secondary: #009ad6;
-  --wallpaper: #e5e5df;
-}
-
 /* Tufte variant — creamy paper, off-black ink (Tufte-CSS canonical).  */
-:root.palette-tufte {
-  --bg: #fffff8;
+:root.palette-cannonical {
+  --bg: #fffcf0;
   --t1: #cfcfca;
   --t2: #7c7c79;
   --t3: #5d5d5b;
@@ -34,8 +18,39 @@
   --t5: #3c3c3b;
   --t6: #292928;
   --t7: #111111;
+  --t8: #a00000;
+  --t9: #ffec99;
+  --t10: #055656;
+  --t11: #d0ffd0;
+  --t12: #ffd7d7;
+  --t13: #afffaf;
+  --t14: #ffb6b6;
   --accent: #a00000;
   --highlight: #ffec99;
   --secondary: #055656;
-  --wallpaper: #e5e5df;
+  --wallpaper: #e5e2d8;
 }
+
+/* Coffee variant — creamy paper, warm "black coffee" ink.  */
+:root.palette-coffee {
+  --bg: #fffcf0;
+  --t1: #E5E0D3;
+  --t2: #857b6f;
+  --t3: #6c6052;
+  --t4: #5d5042;
+  --t5: #514333;
+  --t6: #403020;
+  --t7: #2d1c0b;
+  --t8: #a00000;
+  --t9: #ffec99;
+  --t10: #055656;
+  --t11: #d0ffd0;
+  --t12: #ffd7d7;
+  --t13: #afffaf;
+  --t14: #ffb6b6;
+  --accent: #a00000;
+  --highlight: #ffec99;
+  --secondary: #055656;
+  --wallpaper: #e5e2d8;
+}
+
