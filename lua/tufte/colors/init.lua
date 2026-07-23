@@ -16,6 +16,65 @@ local M = {}
 ---@field secondary string -- Special, function calls
 ---@field diff tufte.PaletteDiff -- standard diff add/remove colors
 
+---@class ColorScheme
+---@field [string] string
+---@field bg string
+---@field bg_dark string
+---@field bg_dark1 string
+---@field bg_highlight string
+---@field bg_popup string
+---@field bg_search string
+---@field bg_sidebar string
+---@field bg_statusline string
+---@field bg_visual string
+---@field black string
+---@field blue string
+---@field blue0 string
+---@field blue1 string
+---@field blue2 string
+---@field blue5 string
+---@field blue6 string
+---@field blue7 string
+---@field border string
+---@field border_highlight string
+---@field comment string
+---@field cursorline_bg string
+---@field cyan string
+---@field dark3 string
+---@field dark5 string
+---@field diff { add: string, delete: string, add_char: string, delete_char: string, change: string, text: string }
+---@field error string
+---@field fg string
+---@field fg_dark string
+---@field fg_float string
+---@field fg_gutter string
+---@field fg_lightgray string
+---@field fg_sidebar string
+---@field git { add: string, delete: string, change: string }
+---@field green string
+---@field green1 string
+---@field green2 string
+---@field highlight string
+---@field hint string
+---@field info string
+---@field magenta string
+---@field magenta2 string
+---@field none string
+---@field orange string
+---@field purple string
+---@field rainbow string[]
+---@field red string
+---@field red1 string
+---@field secondary string
+---@field special_char string
+---@field subtle_bg string
+---@field teal string
+---@field terminal_black string
+---@field terminal { black: string, black_bright: string, red: string, red_bright: string, yellow: string, yellow_bright: string, blue: string, blue_bright: string, magenta: string, magenta_bright: string, cyan: string, cyan_bright: string, white: string, white_bright: string }
+---@field todo string
+---@field warning string
+---@field yellow string
+
 ---@param variant string
 ---@return tufte.Palette
 local function load_palette(variant)

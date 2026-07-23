@@ -1,5 +1,4 @@
 -- Git plugin support for tufte colorscheme
-local Util = require("tufte.utils")
 
 local M = {}
 

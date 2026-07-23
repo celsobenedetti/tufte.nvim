@@ -36,6 +36,8 @@ function M.blend_fg(hex, amount, fg)
 end
 M.lighten = M.blend_fg
 
+---@class tufte.Highlights
+
 ---@param groups tufte.Highlights
 ---@return table<string, vim.api.keyset.highlight>
 function M.resolve(groups)
