@@ -5,6 +5,18 @@ A minimal light colorscheme inspired by the discipline of
 with a vermillion ![#a00000](https://placehold.co/15x15/a00000/a00000) `#a00000`
 accent toward Tufte Design.
 
-### references
+## installation
+
+```lua
+{
+	"celsobenedetti/tufte.nvim",
+	priority = 1000,
+    opts = {
+        variant = "cannonical", -- or "coffee"
+    }
+},
+```
+
+## references
 
 - [Tufte CSS](https://edwardtufte.github.io/tufte-css/)
