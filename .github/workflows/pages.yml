@@ -1,0 +1,35 @@
+name: Deploy prototype to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - prototype/**
+      - lua/tufte/palettes/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: prototype
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate palettes.css
+        run: ./make-prototype.sh
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: prototype/
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
