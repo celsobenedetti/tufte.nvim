@@ -3,7 +3,9 @@ local Util = require("tufte.utils")
 
 local M = {}
 
----@type tufte.HighlightsFn
+---@param c ColorScheme
+---@param opts tufte.Config
+---@return tufte.Highlights
 function M.get(c, opts)
 	-- Diff add/remove convention lives in colors/init.lua (colors.diff); this
 	-- module is just one of its consumers.

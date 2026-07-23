@@ -28,6 +28,7 @@ M.plugins = {
 	["render-markdown.nvim"] = "render-markdown",
 }
 
+---@return table|nil
 function M.get_group(name)
 	local ok, mod = pcall(require, "tufte.groups." .. name)
 	if ok then
@@ -38,6 +39,7 @@ end
 
 ---@param colors ColorScheme
 ---@param opts tufte.Config
+---@return tufte.Highlights
 function M.get(name, colors, opts)
 	local mod = M.get_group(name)
 	if mod and mod.get then

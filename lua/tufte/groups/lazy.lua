@@ -1,7 +1,9 @@
 -- Lazy.nvim plugin support for tufte colorscheme
 local M = {}
 
----@type tufte.HighlightsFn
+---@param c ColorScheme
+---@param opts tufte.Config
+---@return tufte.Highlights
 function M.get(c, opts)
   -- stylua: ignore
   return {

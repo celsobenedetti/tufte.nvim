@@ -89,7 +89,9 @@ local function setup_patch_term_diff()
 	})
 end
 
----@type tufte.HighlightsFn
+---@param c ColorScheme
+---@param opts tufte.Config
+---@return tufte.Highlights
 function M.get(c, opts)
 	setup_patch_term_diff()
 
