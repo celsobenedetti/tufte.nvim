@@ -357,6 +357,17 @@
             " <code>Special</code> and function calls.",
           fg_comment: "black coffee ink",
         },
+        dark: {
+          name: "Dark (inverted canonical)",
+          desc:
+            "Used automatically when Neovim's <code>background=dark</code>," +
+            " regardless of <code>variant</code>. The canonical ramp" +
+            " luminance-inverted: <b>#111111</b> (canonical's ink) becomes the" +
+            " paper, <b>#eeeeee</b> becomes the ink. Accent, highlight, and" +
+            " diff washes are re-picked rather than inverted, so light ink" +
+            " stays legible drawn on top of them.",
+          fg_comment: "near-white ink (canonical's paper, promoted)",
+        },
       };
 
       // ---------- read current palette colours from CSS variables ----------

@@ -155,7 +155,11 @@ end
 function M.setup(opts)
 	opts = require("tufte.config").extend(opts)
 
-	local palette = load_palette(opts.variant or "coffee")
+	-- `background=dark` always wins over `variant`: every configured variant
+	-- (coffee, cannonical) is a light, paper-and-ink palette, so there's
+	-- nothing sensible to fall back to per-variant on a dark background.
+	local variant = vim.o.background == "dark" and "dark" or (opts.variant or "coffee")
+	local palette = load_palette(variant)
 
 	---@class ColorScheme
 	local colors = build_palette(palette)

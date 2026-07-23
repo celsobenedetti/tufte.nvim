@@ -5,7 +5,7 @@ local M = {}
 ---@field on_highlights fun(highlights: tufte.Highlights, colors: ColorScheme)
 M.defaults = {
 	name = "tufte", -- The name of the colorscheme (useful for creating variants)
-	variant = "coffee", -- Palette variant: "coffee" (warm ink) or "cannonical" (off-black)
+	variant = "coffee", -- Palette variant: "coffee" (warm ink) or "cannonical" (off-black). Ignored when `background=dark` (the "dark" palette is used instead).
 	transparent = false, -- Enable this to disable setting the background color
 	terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
 	styles = {

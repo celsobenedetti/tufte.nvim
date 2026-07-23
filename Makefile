@@ -2,4 +2,4 @@
 
 prototype:
 	./prototype/make-prototype.sh
-	xdg-open prototype/tufte.html
+	xdg-open prototype/index.html
