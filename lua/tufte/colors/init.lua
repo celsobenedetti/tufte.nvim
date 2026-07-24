@@ -62,8 +62,8 @@ local function build_colorscheme(p)
 		--- @type tufte.ColorScheme
 		{
 			lighter_bg = t[1], -- faintest chrome: gutter, line numbers
-			darker_bg = t[2],
-			dark_bg = t[3],
+			dark_bg = t[2],
+			darker_bg = t[3],
 
 			muted = t[4], -- comments, faint secondary text
 			dark_fg = t[5], -- least emphasized readable text
