@@ -9,13 +9,13 @@ function M.get(c, opts)
   -- stylua: ignore
   return {
     Comment                     = { fg = c.comment, style = opts.styles.comments }, -- any comment
-    ColorColumn                 = { bg = c.cursorline_bg }, -- used for the columns set with 'colorcolumn'
+    ColorColumn                 = { bg = c.fg_gutter }, -- used for the columns set with 'colorcolumn'
     Conceal                     = { fg = c.dark5 }, -- placeholder characters substituted for concealed text
     Cursor                      = { fg = c.bg, bg = c.fg }, -- character under the cursor
     lCursor                     = { fg = c.bg, bg = c.fg },
     CursorIM                    = { fg = c.bg, bg = c.fg },
     CursorColumn                = { bg = c.bg_highlight },
-    CursorLine                  = { bg = c.cursorline_bg },
+    CursorLine                  = { bg = c.fg_gutter },
     Directory                   = { fg = c.blue },
     DiffAdd                     = { bg = c.diff.add },
     DiffChange                  = { bg = c.diff.change },
