@@ -7,10 +7,10 @@ local M = {}
 function M.get(c)
   -- stylua: ignore
   return {
-    FlashBackdrop = { fg = c.comment },
-    FlashCurrent  = { fg = c.black, bg = c.orange, bold = true },
-    FlashLabel    = { fg = c.black, bg = c.magenta, bold = true },
-    FlashMatch    = { fg = c.cyan, bg = c.bg_highlight, bold = true },
+    FlashBackdrop = { fg = c.muted },
+    FlashCurrent  = { fg = c.background, bg = c.light_foreground, bold = true },
+    FlashLabel    = { fg = c.background, bg = c.bright_foreground, bold = true },
+    FlashMatch    = { fg = c.bright_foreground, bg = c.darker_background, bold = true },
     FlashPrompt   = { link = "NormalFloat" },
   }
 end

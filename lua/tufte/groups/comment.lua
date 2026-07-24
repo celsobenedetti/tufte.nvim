@@ -8,10 +8,10 @@ local M = {}
 function M.get(c, opts)
   -- stylua: ignore
   return {
-    CommentNormal = { fg = c.comment, style = opts.styles.comments },
-    CommentBold   = { fg = c.comment, bold = true },
-    CommentItalic = { fg = c.comment, italic = true },
-    CommentURL    = { fg = c.blue, underline = true },
+    CommentNormal = { fg = c.muted, style = opts.styles.comments },
+    CommentBold   = { fg = c.muted, bold = true },
+    CommentItalic = { fg = c.muted, italic = true },
+    CommentURL    = { fg = c.foreground, underline = true },
   }
 end
 

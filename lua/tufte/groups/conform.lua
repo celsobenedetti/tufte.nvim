@@ -7,8 +7,8 @@ local M = {}
 function M.get(c)
   -- stylua: ignore
   return {
-    ConformProgress = { fg = c.blue },
-    ConformDone     = { fg = c.green },
+    ConformProgress = { fg = c.foreground },
+    ConformDone     = { fg = c.light_foreground },
     ConformError    = { fg = c.error },
   }
 end

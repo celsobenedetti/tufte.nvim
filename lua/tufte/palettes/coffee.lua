@@ -1,29 +1,28 @@
 -- Coffee variant — creamy paper, warm "black coffee" ink.
 --
--- A whisper of warmth over the canonical Tufte ramp: the seven tiers are a
--- cream -> lightened-coffee (#2e1c0a) blend with the mid-tones nudged warm,
--- so grays read as coffee, not gray. Values generated in the prototype
--- (prototype/tufte-colors.html, variant B) and pasted here verbatim.
---
--- tiers: T1 faint chrome -> T7 focus. Contrast vs bg (WCAG):
---   T1 1.58  T2 4.13  T3 6.09  T4 7.77  T5 9.50  T6 12.58  T7 16.31
---   secondary 8.59 (verdigris, warmed toward the coffee ink)
+-- A whisper of warmth over the canonical Tufte ramp: ten steps from cream to
+-- lightened-coffee, with the mid-tones nudged warm so grays read as coffee,
+-- not gray. bg/fg are the paper and ink endpoints; tiers are the ramp
+-- between them, faintest (T1) to darkest (T10).
 --
 ---@type tufte.Palette
 return {
 	bg = "#fffcf0", -- creamy off-white paper
+	fg = "#2d1c0b", -- black coffee ink
 	tiers = {
-		"#E9E5D9", -- T1 faint chrome: gutter, line numbers
-		"#857b6f", -- T2 comments
-		"#6c6052", -- T3 operators, punctuation, hints
-		"#5d5042", -- T4 strings, numbers, secondary data
-		"#514333", -- T5 variables, properties, constructors
-		"#403020", -- T6 types, statements, titles
-		"#2d1c0b", -- T7 functions, keywords, main foreground (black coffee)
+		"#ece8db", -- T1 faintest: gutter, chrome
+		"#d9d3c6", -- T2
+		"#c6bfb2", -- T3
+		"#b3ab9d", -- T4
+		"#a09688", -- T5
+		"#8c8273", -- T6
+		"#796d5e", -- T7
+		"#665949", -- T8
+		"#534535", -- T9
+		"#403020", -- T10 near-ink
 	},
 	accent = "#a00000", -- vermillion: errors, deletions only (rare, sparing)
 	highlight = "#ffec99", -- yellow: search, selection, todo
-	secondary = "#5A4D31", -- verdigris: Special, function calls (a patinated-copper teal, warmed with coffee ink so it sits in the same family as the ramp)
 
 	-- Standard diff add/remove colors. Every diff-add/diff-remove highlight
 	-- group in the colorscheme (native Diff*/diff*, gitsigns, codediff.nvim,

@@ -7,23 +7,23 @@ local M = {}
 function M.get(c, opts)
   -- stylua: ignore
   return {
-    TodoBgFIX      = { bg = c.error, fg = c.bg, bold = true },
-    TodoBgHACK     = { bg = c.warning, fg = c.bg, bold = true },
-    TodoBgNOTE     = { bg = c.hint, fg = c.bg, bold = true },
-    TodoBgPERF     = { bg = c.purple, fg = c.bg, bold = true },
-    TodoBgTODO     = { bg = c.todo, fg = c.bg, bold = true },
-    TodoBgWARN     = { bg = c.warning, fg = c.bg, bold = true },
+    TodoBgFIX      = { bg = c.error, fg = c.background, bold = true },
+    TodoBgHACK     = { bg = c.warning, fg = c.background, bold = true },
+    TodoBgNOTE     = { bg = c.hint, fg = c.background, bold = true },
+    TodoBgPERF     = { bg = c.foreground, fg = c.background, bold = true },
+    TodoBgTODO     = { bg = c.highlight, fg = c.background, bold = true },
+    TodoBgWARN     = { bg = c.warning, fg = c.background, bold = true },
     TodoFgFIX      = { fg = c.error },
     TodoFgHACK     = { fg = c.warning },
     TodoFgNOTE     = { fg = c.hint },
-    TodoFgPERF     = { fg = c.purple },
-    TodoFgTODO     = { fg = c.todo },
+    TodoFgPERF     = { fg = c.foreground },
+    TodoFgTODO     = { fg = c.highlight },
     TodoFgWARN     = { fg = c.warning },
     TodoSignFIX    = { fg = c.error },
     TodoSignHACK   = { fg = c.warning },
     TodoSignNOTE   = { fg = c.hint },
-    TodoSignPERF   = { fg = c.purple },
-    TodoSignTODO   = { fg = c.todo },
+    TodoSignPERF   = { fg = c.foreground },
+    TodoSignTODO   = { fg = c.highlight },
     TodoSignWARN   = { fg = c.warning },
   }
 end

@@ -49,18 +49,18 @@ function M.get(c)
     CodeDiffCharInsert          = { bg = char_insert },
     CodeDiffCharDelete          = { bg = char_delete },
 
-    -- Moved blocks stay on the blue tier, distinct from add/remove
+    -- Moved blocks stay on the same neutral tier, distinct from add/remove
     CodeDiffLineMove            = { bg = c.diff.change },
-    CodeDiffCharMove            = { bg = Util.blend_bg(c.blue7, 0.35) },
-    CodeDiffMoveFrom            = { fg = c.blue },
-    CodeDiffMoveTo              = { fg = c.blue },
+    CodeDiffCharMove            = { bg = Util.blend_bg(c.diff.text, 0.35) },
+    CodeDiffMoveFrom            = { fg = c.foreground },
+    CodeDiffMoveTo              = { fg = c.foreground },
 
-    CodeDiffFiller              = { fg = c.dark3 },
+    CodeDiffFiller              = { fg = c.muted },
 
     -- Explorer / status panel
-    CodeDiffStatusAdded         = { fg = c.git.add },
-    CodeDiffStatusModified      = { fg = c.git.change },
-    CodeDiffStatusDeleted       = { fg = c.git.delete },
+    CodeDiffStatusAdded         = { fg = c.bright_foreground },
+    CodeDiffStatusModified      = { fg = c.light_foreground },
+    CodeDiffStatusDeleted       = { fg = c.accent },
     CodeDiffStatusRenamed       = { fg = c.info },
     CodeDiffStatusUntracked     = { fg = c.info },
     CodeDiffStatusConflict      = { fg = c.error },
@@ -72,8 +72,8 @@ function M.get(c)
     -- Merge conflict signs
     CodeDiffConflictSign         = { fg = c.warning },
     CodeDiffConflictSignResolved = { link = "Comment" },
-    CodeDiffConflictSignAccepted = { fg = c.git.add },
-    CodeDiffConflictSignRejected = { fg = c.git.delete },
+    CodeDiffConflictSignAccepted = { fg = c.bright_foreground },
+    CodeDiffConflictSignRejected = { fg = c.accent },
 
     CodeDiffHistoryTitle        = { link = "FloatTitle" },
   }

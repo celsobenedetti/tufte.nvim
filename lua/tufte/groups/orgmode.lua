@@ -17,42 +17,42 @@ function M.get(c, opts)
   -- stylua: ignore
   return {
     -- Headlines (mirror markdown heading colors)
-    ["@org.headline.level1"] = { fg = c.red, bold = true },
-    ["@org.headline.level2"] = { fg = c.orange, bold = true },
-    ["@org.headline.level3"] = { fg = c.yellow, bold = true },
-    ["@org.headline.level4"] = { fg = c.green, bold = true },
-    ["@org.headline.level5"] = { fg = c.blue, bold = true },
-    ["@org.headline.level6"] = { fg = c.purple, bold = true },
-    ["@org.headline.level7"] = { fg = c.cyan, bold = true },
-    ["@org.headline.level8"] = { fg = c.teal, bold = true },
+    ["@org.headline.level1"] = { fg = c.foreground, bold = true },
+    ["@org.headline.level2"] = { fg = c.bright_foreground, bold = true },
+    ["@org.headline.level3"] = { fg = c.light_foreground, bold = true },
+    ["@org.headline.level4"] = { fg = c.dark_foreground, bold = true },
+    ["@org.headline.level5"] = { fg = c.foreground, bold = true },
+    ["@org.headline.level6"] = { fg = c.bright_foreground, bold = true },
+    ["@org.headline.level7"] = { fg = c.bright_foreground, bold = true },
+    ["@org.headline.level8"] = { fg = c.dark_foreground, bold = true },
     ["@org.leading_stars"]   = {}, -- cleared: stars fall back to the headline group instead of being hidden (orgmode's default is guifg=bg)
 
     -- Priorities
     ["@org.priority.highest"] = { fg = c.error },
 
     -- Tags and plan
-    ["@org.tag"]  = { fg = c.green1 },
-    ["@org.plan"] = { fg = c.purple },
+    ["@org.tag"]  = { fg = c.bright_foreground },
+    ["@org.plan"] = { fg = c.foreground },
 
     -- Timestamps
-    ["@org.timestamp.active"]   = { fg = c.purple, bold = true },
-    ["@org.timestamp.inactive"] = { fg = c.comment },
+    ["@org.timestamp.active"]   = { fg = c.foreground, bold = true },
+    ["@org.timestamp.inactive"] = { fg = c.muted },
 
     -- Lists / checkboxes
-    ["@org.bullet"]                = { fg = c.blue5 },
-    ["@org.checkbox"]              = { fg = c.blue },
-    ["@org.checkbox.halfchecked"]  = { fg = c.yellow },
-    ["@org.checkbox.checked"]      = { fg = c.green1 },
+    ["@org.bullet"]                = { fg = c.dark_foreground },
+    ["@org.checkbox"]              = { fg = c.foreground },
+    ["@org.checkbox.halfchecked"]  = { fg = c.foreground },
+    ["@org.checkbox.checked"]      = { fg = c.bright_foreground },
 
     -- Drawers / properties
-    ["@org.properties"]      = { fg = c.green1 },
-    ["@org.properties.name"] = { fg = c.green1 },
-    ["@org.drawer"]          = { fg = c.green1 },
+    ["@org.properties"]      = { fg = c.bright_foreground },
+    ["@org.properties.name"] = { fg = c.bright_foreground },
+    ["@org.drawer"]          = { fg = c.bright_foreground },
 
     -- Comments / directives / blocks
-    ["@org.comment"]   = { fg = c.comment, style = opts.styles.comments },
-    ["@org.directive"] = { fg = c.comment, style = opts.styles.comments },
-    ["@org.block"]     = { fg = c.comment, style = opts.styles.comments },
+    ["@org.comment"]   = { fg = c.muted, style = opts.styles.comments },
+    ["@org.directive"] = { fg = c.muted, style = opts.styles.comments },
+    ["@org.block"]     = { fg = c.muted, style = opts.styles.comments },
 
     -- Markup
     ["@org.bold"]                    = { bold = true },
@@ -63,36 +63,36 @@ function M.get(c, opts)
     ["@org.strikethrough.delimiter"] = { strikethrough = true },
     ["@org.underline"]               = { underline = true },
     ["@org.underline.delimiter"]     = { underline = true },
-    ["@org.code"]                    = { fg = c.green },
-    ["@org.code.delimiter"]          = { fg = c.green },
-    ["@org.verbatim"]                = { fg = c.green },
-    ["@org.verbatim.delimiter"]      = { fg = c.green },
-    ["@org.hyperlink"]               = { fg = c.teal, underline = true },
-    ["@org.hyperlink.url"]           = { fg = c.teal, underline = true },
-    ["@org.hyperlink.desc"]          = { fg = c.blue },
-    ["@org.latex"]                   = { fg = c.orange },
-    ["@org.latex_env"]               = { fg = c.cyan },
-    ["@org.footnote"]                = { fg = c.teal, underline = true },
-    ["@org.footnote.reference"]      = { fg = c.teal, underline = true },
+    ["@org.code"]                    = { fg = c.light_foreground },
+    ["@org.code.delimiter"]          = { fg = c.light_foreground },
+    ["@org.verbatim"]                = { fg = c.light_foreground },
+    ["@org.verbatim.delimiter"]      = { fg = c.light_foreground },
+    ["@org.hyperlink"]               = { fg = c.dark_foreground, underline = true },
+    ["@org.hyperlink.url"]           = { fg = c.dark_foreground, underline = true },
+    ["@org.hyperlink.desc"]          = { fg = c.foreground },
+    ["@org.latex"]                   = { fg = c.light_foreground },
+    ["@org.latex_env"]               = { fg = c.bright_foreground },
+    ["@org.footnote"]                = { fg = c.dark_foreground, underline = true },
+    ["@org.footnote.reference"]      = { fg = c.dark_foreground, underline = true },
 
     -- Tables
-    ["@org.table.delimiter"] = { fg = c.blue5 },
-    ["@org.table.heading"]   = { fg = c.blue, bold = true },
+    ["@org.table.delimiter"] = { fg = c.dark_foreground },
+    ["@org.table.heading"]   = { fg = c.foreground, bold = true },
 
     -- Source block edit buffer
-    ["@org.edit_src"] = { bg = c.bg_visual },
+    ["@org.edit_src"] = { bg = c.selection },
 
     -- Keywords
     ["@org.keyword.todo"] = { fg = c.error, bold = true },
-    ["@org.keyword.done"] = { fg = c.green1, bold = true },
+    ["@org.keyword.done"] = { fg = c.bright_foreground, bold = true },
 
     -- Agenda
     ["@org.agenda.deadline"]          = { fg = c.error },
     ["@org.agenda.deadline.upcoming"] = { fg = c.warning },
-    ["@org.agenda.scheduled"]         = { fg = c.green1 },
+    ["@org.agenda.scheduled"]         = { fg = c.bright_foreground },
     ["@org.agenda.scheduled_past"]    = { fg = c.warning },
     ["@org.agenda.time_grid"]         = { fg = c.warning },
-    ["@org.agenda.separator"]         = { fg = c.border },
+    ["@org.agenda.separator"]         = { fg = c.dark_foreground },
   }
 end
 

@@ -10,12 +10,12 @@ function M.get(c, opts)
   -- stylua: ignore
   return {
     -- Headings
-    ["@markup.heading.1.markdown"] = { fg = c.red, bold = true },
-    ["@markup.heading.2.markdown"] = { fg = c.orange, bold = true },
-    ["@markup.heading.3.markdown"] = { fg = c.yellow, bold = true },
-    ["@markup.heading.4.markdown"] = { fg = c.green, bold = true },
-    ["@markup.heading.5.markdown"] = { fg = c.blue, bold = true },
-    ["@markup.heading.6.markdown"] = { fg = c.purple, bold = true },
+    ["@markup.heading.1.markdown"] = { fg = c.foreground, bold = true },
+    ["@markup.heading.2.markdown"] = { fg = c.bright_foreground, bold = true },
+    ["@markup.heading.3.markdown"] = { fg = c.light_foreground, bold = true },
+    ["@markup.heading.4.markdown"] = { fg = c.dark_foreground, bold = true },
+    ["@markup.heading.5.markdown"] = { fg = c.foreground, bold = true },
+    ["@markup.heading.6.markdown"] = { fg = c.bright_foreground, bold = true },
 
     -- Text styles
     ["@markup.strong"]       = { bold = true },
@@ -24,24 +24,24 @@ function M.get(c, opts)
     ["@markup.underline"]    = { underline = true },
 
     -- Links and references
-    ["@markup.link"]         = { fg = c.blue, underline = true },
-    ["@markup.link.url"]     = { fg = c.cyan, underline = true },
-    ["@markup.link.label"]   = { fg = c.blue },
+    ["@markup.link"]         = { fg = c.foreground, underline = true },
+    ["@markup.link.url"]     = { fg = c.bright_foreground, underline = true },
+    ["@markup.link.label"]   = { fg = c.foreground },
 
     -- Code blocks
-    ["@markup.raw"]          = { fg = c.green },
-    ["@markup.raw.block"]    = { fg = c.fg },
+    ["@markup.raw"]          = { fg = c.light_foreground },
+    ["@markup.raw.block"]    = { fg = c.foreground },
 
     -- Lists
-    ["@markup.list"]         = { fg = c.cyan },
-    ["@markup.list.checked"] = { fg = c.green },
-    ["@markup.list.unchecked"] = { fg = c.fg_dark },
+    ["@markup.list"]         = { fg = c.bright_foreground },
+    ["@markup.list.checked"] = { fg = c.light_foreground },
+    ["@markup.list.unchecked"] = { fg = c.foreground },
 
     -- Quotes
-    ["@markup.quote"]        = { fg = c.comment, italic = true },
+    ["@markup.quote"]        = { fg = c.muted, italic = true },
 
     -- Math
-    ["@markup.math"]         = { fg = c.orange },
+    ["@markup.math"]         = { fg = c.light_foreground },
   }
 end
 

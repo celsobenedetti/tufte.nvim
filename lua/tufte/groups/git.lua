@@ -96,21 +96,21 @@ function M.get(c, opts)
 
   -- stylua: ignore
   return {
-    gitcommitOverflow         = { fg = c.red },
-    gitcommitSummary          = { fg = c.green },
-    gitcommitComment          = { fg = c.comment, style = opts.styles.comments },
-    gitcommitUntracked        = { fg = c.comment },
-    gitcommitDiscarded        = { fg = c.comment },
-    gitcommitSelected         = { fg = c.comment },
-    gitcommitHeader           = { fg = c.purple },
-    gitcommitSelectedType     = { fg = c.blue },
-    gitcommitUnmergedType     = { fg = c.blue },
-    gitcommitDiscardedType    = { fg = c.blue },
-    gitcommitBranch           = { fg = c.orange, bold = true },
-    gitcommitUntrackedFile    = { fg = c.yellow },
-    gitcommitUnmergedFile     = { fg = c.red, bold = true },
-    gitcommitDiscardedFile    = { fg = c.red, bold = true },
-    gitcommitSelectedFile     = { fg = c.green, bold = true },
+    gitcommitOverflow         = { fg = c.accent },
+    gitcommitSummary          = { fg = c.light_foreground },
+    gitcommitComment          = { fg = c.muted, style = opts.styles.comments },
+    gitcommitUntracked        = { fg = c.muted },
+    gitcommitDiscarded        = { fg = c.muted },
+    gitcommitSelected         = { fg = c.muted },
+    gitcommitHeader           = { fg = c.foreground },
+    gitcommitSelectedType     = { fg = c.foreground },
+    gitcommitUnmergedType     = { fg = c.foreground },
+    gitcommitDiscardedType    = { fg = c.foreground },
+    gitcommitBranch           = { fg = c.light_foreground, bold = true },
+    gitcommitUntrackedFile    = { fg = c.foreground },
+    gitcommitUnmergedFile     = { fg = c.foreground, bold = true },
+    gitcommitDiscardedFile    = { fg = c.foreground, bold = true },
+    gitcommitSelectedFile     = { fg = c.light_foreground, bold = true },
   }
 end
 

@@ -10,69 +10,31 @@ local M = {}
 
 ---@class tufte.Palette
 ---@field bg string
----@field tiers string[] -- 7 entries, T1 faint chrome -> T7 focus
+---@field fg string
+---@field tiers string[] -- 10 entries, T1 faintest (near bg) -> T10 (near fg)
 ---@field accent string  -- vermillion, used sparingly
 ---@field highlight string -- yellow highlight
----@field secondary string -- Special, function calls
 ---@field diff tufte.PaletteDiff -- standard diff add/remove colors
 
 ---@class ColorScheme
----@field [string] string
----@field bg string
----@field bg_dark string
----@field bg_dark1 string
----@field bg_highlight string
----@field bg_popup string
----@field bg_search string
----@field bg_sidebar string
----@field bg_statusline string
----@field bg_visual string
----@field black string
----@field blue string
----@field blue0 string
----@field blue1 string
----@field blue2 string
----@field blue5 string
----@field blue6 string
----@field blue7 string
----@field border string
----@field border_highlight string
----@field comment string
----@field cyan string
----@field dark3 string
----@field dark5 string
+---@field accent string -- vermillion, used sparingly (errors, deletions)
+---@field selection string -- soft yellow selection/visual background
+---@field muted string -- comments, secondary/faint text
+---@field background string -- paper
+---@field dark_background string -- popups, statusline, sidebars
+---@field darker_background string -- cursorline, colorcolumn, reference highlights
+---@field lighter_background string -- faintest chrome: gutter, line numbers
+---@field foreground string -- main ink
+---@field dark_foreground string -- least emphasized readable text
+---@field light_foreground string -- lightly emphasized text
+---@field bright_foreground string -- strongly emphasized text (just under foreground)
 ---@field diff { add: string, delete: string, add_char: string, delete_char: string, change: string, text: string }
+---@field highlight string -- yellow: search, selection, todo
 ---@field error string
----@field fg string
----@field fg_dark string
----@field fg_float string
----@field fg_gutter string
----@field fg_lightgray string
----@field fg_sidebar string
----@field git { add: string, delete: string, change: string }
----@field green string
----@field green1 string
----@field green2 string
----@field highlight string
----@field hint string
----@field info string
----@field magenta string
----@field magenta2 string
----@field none string
----@field orange string
----@field purple string
----@field rainbow string[]
----@field red string
----@field red1 string
----@field secondary string
----@field special_char string
----@field subtle_bg string
----@field teal string
----@field terminal_black string
----@field terminal { black: string, black_bright: string, red: string, red_bright: string, yellow: string, yellow_bright: string, blue: string, blue_bright: string, magenta: string, magenta_bright: string, cyan: string, cyan_bright: string, white: string, white_bright: string }
----@field todo string
 ---@field warning string
----@field yellow string
+---@field info string
+---@field hint string
+---@field terminal { black: string, black_bright: string, red: string, red_bright: string, yellow: string, yellow_bright: string, blue: string, blue_bright: string, magenta: string, magenta_bright: string, cyan: string, cyan_bright: string, white: string, white_bright: string }
 
 ---@param variant string
 ---@return tufte.Palette
@@ -89,64 +51,31 @@ local function load_palette(variant)
 end
 
 --- Build the flat color table the highlight groups consume.
---- Every syntax name maps onto a luminance tier; only errors/deletions get the
---- vermillion accent, only search/selection/todo get the yellow highlight.
+--- Every UI/syntax role maps onto a luminance step of the bg -> fg ramp;
+--- only errors/deletions get the vermillion accent, only search/selection/
+--- todo get the yellow highlight. `tiers` holds 10 steps (T1 faintest, near
+--- `bg`, -> T10 darkest, near `fg`); the fields below each pin one step.
 ---@param p tufte.Palette
 local function build_palette(p)
 	local t = p.tiers
 	local bg = p.bg
+	local fg = p.fg
 
 	return {
-		bg = bg,
-		bg_dark = Util.blend(t[7], 0.03, bg),
-		bg_dark1 = Util.blend(t[7], 0.03, bg),
-		bg_highlight = Util.blend(t[7], 0.07, bg),
+		background = bg,
+		foreground = fg,
 
-		-- Luminance tiers mapped onto the syntax names the groups already use.
-		blue = t[6], -- statements, directories, titles
-		blue0 = p.highlight, -- selection / search background (yellow)
-		blue1 = t[5], -- borders, pmenu match
-		blue2 = t[4], -- info diagnostic
-		blue5 = t[3], -- operators, punctuation delimiters
-		blue6 = t[4], -- string.regexp
-		blue7 = Util.blend(t[7], 0.09, bg), -- diff change bg (light)
+		lighter_background = t[1], -- faintest chrome: gutter, line numbers
+		dark_background = Util.blend(fg, 0.03, bg), -- popups, statusline, sidebars
+		darker_background = Util.blend(fg, 0.07, bg), -- cursorline, colorcolumn, reference highlights
 
-		comment = t[2],
-		cyan = p.secondary, -- preprocessor, macros, special
-
-		dark3 = Util.blend(t[2], 0.45, t[1]), -- nontext, ignored
-		dark5 = Util.blend(t[2], 0.7, t[1]), -- concealed text
-
-		fg = t[7],
-		fg_dark = t[6],
-		fg_lightgray = t[3],
-		fg_gutter = t[1],
-
-		green = t[4], -- strings, characters
-		green1 = t[5], -- properties, variable.member
-		green2 = t[5], -- git add
-
-		magenta = t[5], -- constructors
-		magenta2 = t[5], -- variables, identifiers
-
-		orange = t[4], -- numbers, booleans
-		purple = t[7], -- keywords, constants, conditionals
-
-		red = t[6], -- tags (a tier, NOT the accent)
-		red1 = p.accent, -- error, git delete -> vermillion (rare)
-
-		teal = t[3], -- hints, markup links
-		terminal_black = t[1],
-
-		yellow = t[6], -- types, labels, parameters, warnings
-
-		git = {},
-
-		special_char = t[5],
+		muted = t[4], -- comments, faint secondary text
+		dark_foreground = t[5], -- least emphasized readable text
+		light_foreground = t[7], -- lightly emphasized text
+		bright_foreground = t[9], -- strongly emphasized text
 
 		accent = p.accent,
 		highlight = p.highlight,
-		secondary = p.secondary,
 	}
 end
 
@@ -163,15 +92,10 @@ function M.setup(opts)
 		colors = vim.tbl_deep_extend("force", colors, opts.colors)
 	end
 
-	Util.bg = colors.bg
-	Util.fg = colors.fg
+	Util.bg = colors.background
+	Util.fg = colors.foreground
 
-	colors.none = "NONE"
-
-	-- Git colors derived from the palette. Deletion uses the vermillion accent.
-	colors.git.add = colors.green2
-	colors.git.delete = colors.red1
-	colors.git.change = colors.orange
+	colors.selection = Util.blend_bg(colors.highlight, 0.4, colors.background) -- soft yellow selection
 
 	-- Diff add/remove convention: every diff-add/diff-remove highlight group
 	-- across the colorscheme (native Diff*/diff*, gitsigns, codediff.nvim,
@@ -180,76 +104,36 @@ function M.setup(opts)
 	-- palettes/*.lua). `add`/`delete` are the line-level background;
 	-- `add_char`/`delete_char` are a more saturated version of the same hue
 	-- for intra-line (char-level) emphasis on top of that background.
+	local diff_text = Util.blend(colors.foreground, 0.09, colors.background)
 	colors.diff = {
 		add = palette.diff.add,
 		delete = palette.diff.delete,
 		add_char = palette.diff.add_char,
 		delete_char = palette.diff.delete_char,
-		change = Util.blend_bg(colors.blue7, 0.15),
-		text = colors.blue7,
+		change = Util.blend_bg(diff_text, 0.15, colors.background),
+		text = diff_text,
 	}
 
-	colors.git.ignore = colors.dark3
-	colors.black = Util.blend_bg(colors.bg, 0.8, colors.bg)
-	colors.border_highlight = Util.blend_bg(colors.blue1, 0.8)
-	colors.border = Util.blend_bg(colors.fg, 0.15)
-
-	-- Popups and statusline get a subtle background
-	colors.bg_popup = colors.bg_dark
-	colors.bg_statusline = colors.bg_dark
-
-	colors.bg_sidebar = opts.styles.sidebars == "transparent" and colors.none
-		or opts.styles.sidebars == "dark" and colors.bg_dark
-		or colors.bg
-
-	colors.bg_float = opts.styles.floats == "transparent" and colors.none
-		or opts.styles.floats == "dark" and colors.bg_dark
-		or colors.bg
-
-	colors.bg_visual = Util.blend_bg(colors.blue0, 0.4) -- soft yellow selection
-	colors.bg_search = colors.blue0 -- yellow search
-	colors.fg_sidebar = colors.fg
-	colors.fg_float = colors.fg
-
-	colors.error = colors.red1 -- vermillion
-	colors.todo = colors.blue
-	colors.warning = colors.yellow
-	colors.info = colors.blue2
-	colors.hint = colors.teal
-
-	-- Subtle blended backgrounds
-	colors.subtle_bg = Util.blend_bg(colors.fg, 0.06)
-	colors.selection_bg = Util.blend_bg(colors.fg, 0.12)
-	colors.float_bg = Util.blend_bg(colors.fg, 0.04)
-
-	colors.rainbow = {
-		colors.blue,
-		colors.yellow,
-		colors.green,
-		colors.teal,
-		colors.magenta,
-		colors.purple,
-		colors.orange,
-		colors.red,
-	}
+	colors.error = colors.accent -- vermillion
+	colors.warning = colors.foreground
+	colors.info = colors.light_foreground
+	colors.hint = colors.dark_foreground
 
 	-- Terminal colors for `:terminal` buffers (incl. vim-fugitive's `-p`
 	-- patch prompts, which run through a real terminal, not Vim syntax
 	-- highlighting — see groups/base.lua's diff comment).
 	--
-	-- These are real, distinguishable hues, NOT the editor's syntax tiers.
-	-- The syntax palette intentionally desaturates "green"/"cyan"/etc. into
-	-- grayscale luminance tiers (only errors/deletions get real color, per
-	-- build_palette above) — that's fine for Vim highlighting, but ANSI
-	-- programs (git diff, ls --color, test runners, docker) rely on color
-	-- 2 actually looking green, 3 actually looking yellow, etc. Reusing the
-	-- grayscale tiers there made e.g. `git add -p` additions render as
-	-- indistinguishable-from-plain-text gray. Fixed hex, not palette-derived,
-	-- for the same reason as colors.diff: both variants share the same `bg`.
+	-- These are real, distinguishable hues, NOT the editor's grayscale ramp.
+	-- The syntax palette intentionally desaturates everything into
+	-- luminance steps (only errors/highlight get real color) — that's fine
+	-- for Vim highlighting, but ANSI programs (git diff, ls --color, test
+	-- runners, docker) rely on color 2 actually looking green, 3 actually
+	-- looking yellow, etc. Fixed hex, not palette-derived, for the same
+	-- reason as colors.diff: both variants share the same background.
 	-- Contrast-checked (WCAG) against bg #fffcf0, all >= 4.5:1.
 	colors.terminal = {
-		black = colors.bg,
-		black_bright = colors.terminal_black,
+		black = colors.background,
+		black_bright = colors.lighter_background,
 		red = colors.accent,
 		red_bright = colors.accent,
 		green = "#2f6f2f",
@@ -262,8 +146,8 @@ function M.setup(opts)
 		magenta_bright = "#8a3d6e",
 		cyan = "#1f7a6c",
 		cyan_bright = "#1f7a6c",
-		white = colors.fg,
-		white_bright = colors.fg,
+		white = colors.foreground,
+		white_bright = colors.foreground,
 	}
 
 	opts.on_colors(colors)

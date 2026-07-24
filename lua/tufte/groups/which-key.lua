@@ -9,13 +9,13 @@ local M = {}
 function M.get(c, opts)
   -- stylua: ignore
   return {
-    WhichKey                = { fg = c.cyan },
-    WhichKeyGroup           = { fg = c.blue, bold = true },
-    WhichKeyDesc            = { fg = c.magenta },
-    WhichKeySeparator       = { fg = c.comment },
-    WhichKeyFloat           = { bg = c.bg_popup },
-    WhichKeyBorder          = { bg = c.bg_popup, fg = c.border_highlight },
-    WhichKeyValue           = { fg = c.comment },
+    WhichKey                = { fg = c.bright_foreground },
+    WhichKeyGroup           = { fg = c.foreground, bold = true },
+    WhichKeyDesc            = { fg = c.bright_foreground },
+    WhichKeySeparator       = { fg = c.muted },
+    WhichKeyFloat           = { bg = c.dark_background },
+    WhichKeyBorder          = { bg = c.dark_background, fg = c.bright_foreground },
+    WhichKeyValue           = { fg = c.muted },
   }
 end
 

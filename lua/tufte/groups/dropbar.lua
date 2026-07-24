@@ -11,8 +11,8 @@ local M = {}
 function M.get(c)
   -- stylua: ignore
   return {
-    DropBarMenuNormalFloat = { fg = c.fg, bg = c.bg },
-    DropBarMenuFloatBorder = { fg = c.border_highlight, bg = c.bg },
+    DropBarMenuNormalFloat = { fg = c.foreground, bg = c.background },
+    DropBarMenuFloatBorder = { fg = c.bright_foreground, bg = c.background },
   }
 end
 

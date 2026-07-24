@@ -42,12 +42,12 @@ function M.get(c, opts)
     ["@lsp.type.variable"]           = { link = "Identifier" },
 
     -- LSP References and Definitions
-    LspReferenceText                 = { bg = c.bg_highlight },
-    LspReferenceRead                 = { bg = c.bg_highlight },
-    LspReferenceWrite                = { bg = c.bg_highlight, bold = true },
-    LspSignatureActiveParameter      = { fg = c.orange, bold = true },
-    LspCodeLens                      = { fg = c.comment },
-    LspInlayHint                     = { fg = c.comment, bg = Util.blend_bg(c.comment, 0.1) },
+    LspReferenceText                 = { bg = c.darker_background },
+    LspReferenceRead                 = { bg = c.darker_background },
+    LspReferenceWrite                = { bg = c.darker_background, bold = true },
+    LspSignatureActiveParameter      = { fg = c.light_foreground, bold = true },
+    LspCodeLens                      = { fg = c.muted },
+    LspInlayHint                     = { fg = c.muted, bg = Util.blend_bg(c.muted, 0.1) },
   }
 end
 
