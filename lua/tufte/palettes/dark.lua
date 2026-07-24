@@ -20,24 +20,24 @@ return {
 	bg = "#2d1c0b", -- near-black paper (canonical's ink, promoted to bg)
 	tiers = {
 		"#303030", -- T1 faint chrome: gutter, line numbers
-		"#838383", -- T2 comments
+		"#857b6f", -- T2 comments
 		"#a2a2a2", -- T3 operators, punctuation, hints
 		"#b5b5b5", -- T4 strings, numbers, secondary data
 		"#c3c3c3", -- T5 variables, properties, constructors
 		"#d6d6d6", -- T6 types, statements, titles
 		"#fffcf0", -- T7 functions, keywords, main foreground (canonical's paper, promoted to ink)
 	},
-	accent = "#D50000", -- vermillion: errors, deletions only (rare, sparing)
-	highlight = "#ffec99", -- dark gold: search, selection, todo (a wash, not a pastel — dark ink washes don't invert to a light bg)
-	secondary = "#fffcf0", -- bright teal: Special, function calls
+	accent = "#f57f82", -- vermillion: errors, deletions only (rare, sparing)
+	highlight = "#6f8788", -- dark gold: search, selection, todo (a wash, not a pastel — dark ink washes don't invert to a light bg)
+	secondary = "#adc9bc", -- bright teal: Special, function calls
 
 	-- Standard diff add/remove colors. Dark, muted washes (not canonical's
 	-- pastels) so the theme's light ink stays legible drawn on top — see the
 	-- diff convention comment in colors/init.lua.
 	diff = {
-		add = "#3E4843", -- line-level add background
-		delete = "#45383B", -- line-level delete background
-		add_char = "#56645D", -- char-level add emphasis (more saturated)
-		delete_char = "#45383B", -- char-level delete emphasis (more saturated)
+		add = "#002800", -- line-level add background
+		delete = "#3f0000", -- line-level delete background
+		add_char = "#006000", -- char-level add emphasis (more saturated)
+		delete_char = "#901011", -- char-level delete emphasis (more saturated)
 	},
 }
