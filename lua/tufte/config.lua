@@ -1,8 +1,8 @@
 local M = {}
 
 ---@class tufte.Config
----@field on_colors fun(colors: ColorScheme)
----@field on_highlights fun(highlights: tufte.Highlights, colors: ColorScheme)
+---@field on_colors fun(colors: tufte.ColorScheme)
+---@field on_highlights fun(highlights: tufte.Highlights, colors: tufte.ColorScheme)
 M.defaults = {
 	name = "tufte", -- The name of the colorscheme (useful for creating variants)
 	variant = "coffee", -- Palette variant: "coffee" (warm ink) or "cannonical" (off-black)
@@ -25,15 +25,15 @@ M.defaults = {
 	colors = {},
 
 	--- You can override specific color groups to use other groups or a hex color
-	--- function will be called with a ColorScheme table
-	---@param colors ColorScheme
+	--- function will be called with a tufte.ColorScheme table
+	---@param colors tufte.ColorScheme
 	---@diagnostic disable-next-line: unused-local
 	on_colors = function(colors) end,
 
 	--- You can override specific highlights to use other groups or a hex color
-	--- function will be called with a Highlights and ColorScheme table
+	--- function will be called with a Highlights and tufte.ColorScheme table
 	---@param highlights tufte.Highlights
-	---@param colors ColorScheme
+	---@param colors tufte.ColorScheme
 	---@diagnostic disable-next-line: unused-local
 	on_highlights = function(highlights, colors) end,
 

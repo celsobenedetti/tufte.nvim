@@ -3,7 +3,7 @@ local Util = require("tufte.utils")
 
 local M = {}
 
----@param c ColorScheme
+---@param c tufte.ColorScheme
 ---@return tufte.Highlights
 function M.get(c)
 	-- Diff add/remove convention lives in colors/init.lua (colors.diff); this
@@ -15,7 +15,7 @@ function M.get(c)
 
 	-- codediff.nvim re-derives CodeDiffLine/CharInsert/Delete from its own
 	-- `highlights` config (default: read off DiffAdd/DiffDelete) every time its
-	-- setup() runs or `ColorScheme` fires, without a `default = true` guard —
+	-- setup() runs or `tufte.ColorScheme` fires, without a `default = true` guard —
 	-- so it clobbers plain nvim_set_hl() calls made for those groups here.
 	-- Push our colors through its own config instead, so it always resolves to
 	-- what we want regardless of load order, then force an immediate re-derive.
@@ -52,14 +52,14 @@ function M.get(c)
     -- Moved blocks stay on the same neutral tier, distinct from add/remove
     CodeDiffLineMove            = { bg = c.diff.change },
     CodeDiffCharMove            = { bg = Util.blend_bg(c.diff.text, 0.35) },
-    CodeDiffMoveFrom            = { fg = c.foreground },
-    CodeDiffMoveTo              = { fg = c.foreground },
+    CodeDiffMoveFrom            = { fg = c.fg },
+    CodeDiffMoveTo              = { fg = c.fg },
 
     CodeDiffFiller              = { fg = c.muted },
 
     -- Explorer / status panel
-    CodeDiffStatusAdded         = { fg = c.bright_foreground },
-    CodeDiffStatusModified      = { fg = c.light_foreground },
+    CodeDiffStatusAdded         = { fg = c.bright_fg },
+    CodeDiffStatusModified      = { fg = c.light_fg },
     CodeDiffStatusDeleted       = { fg = c.accent },
     CodeDiffStatusRenamed       = { fg = c.info },
     CodeDiffStatusUntracked     = { fg = c.info },
@@ -72,7 +72,7 @@ function M.get(c)
     -- Merge conflict signs
     CodeDiffConflictSign         = { fg = c.warning },
     CodeDiffConflictSignResolved = { link = "Comment" },
-    CodeDiffConflictSignAccepted = { fg = c.bright_foreground },
+    CodeDiffConflictSignAccepted = { fg = c.bright_fg },
     CodeDiffConflictSignRejected = { fg = c.accent },
 
     CodeDiffHistoryTitle        = { link = "FloatTitle" },

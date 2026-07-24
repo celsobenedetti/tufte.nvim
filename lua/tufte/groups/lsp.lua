@@ -3,7 +3,7 @@ local Util = require("tufte.utils")
 
 local M = {}
 
----@param c ColorScheme
+---@param c tufte.ColorScheme
 ---@param opts tufte.Config
 ---@return tufte.Highlights
 function M.get(c, opts)
@@ -42,10 +42,10 @@ function M.get(c, opts)
     ["@lsp.type.variable"]           = { link = "Identifier" },
 
     -- LSP References and Definitions
-    LspReferenceText                 = { bg = c.darker_background },
-    LspReferenceRead                 = { bg = c.darker_background },
-    LspReferenceWrite                = { bg = c.darker_background, bold = true },
-    LspSignatureActiveParameter      = { fg = c.light_foreground, bold = true },
+    LspReferenceText                 = { bg = c.darker_bg },
+    LspReferenceRead                 = { bg = c.darker_bg },
+    LspReferenceWrite                = { bg = c.darker_bg, bold = true },
+    LspSignatureActiveParameter      = { fg = c.light_fg, bold = true },
     LspCodeLens                      = { fg = c.muted },
     LspInlayHint                     = { fg = c.muted, bg = Util.blend_bg(c.muted, 0.1) },
   }

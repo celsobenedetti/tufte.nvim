@@ -3,7 +3,7 @@ local Util = require("tufte.utils")
 
 local M = {}
 
----@param c ColorScheme
+---@param c tufte.ColorScheme
 ---@param opts tufte.Config
 ---@return tufte.Highlights
 function M.get(c, opts)

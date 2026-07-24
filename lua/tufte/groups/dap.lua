@@ -3,42 +3,42 @@ local Util = require("tufte.utils")
 
 local M = {}
 
----@param c ColorScheme
+---@param c tufte.ColorScheme
 ---@return tufte.Highlights
 function M.get(c)
   -- stylua: ignore
   return {
     DapBreakpoint          = { fg = c.accent },
-    DapBreakpointCondition = { fg = c.foreground },
+    DapBreakpointCondition = { fg = c.fg },
     DapBreakpointRejected  = { fg = c.muted },
-    DapLogPoint            = { fg = c.foreground },
-    DapStopped             = { fg = c.light_foreground },
-    DapStoppedLine         = { bg = Util.blend_bg(c.foreground, 0.2) },
-    DapUIBreakpointsCurrentLine = { fg = c.light_foreground, bold = true },
+    DapLogPoint            = { fg = c.fg },
+    DapStopped             = { fg = c.light_fg },
+    DapStoppedLine         = { bg = Util.blend_bg(c.fg, 0.2) },
+    DapUIBreakpointsCurrentLine = { fg = c.light_fg, bold = true },
     DapUIBreakpointsDisabledLine = { fg = c.muted },
-    DapUIBreakpointsInfo   = { fg = c.light_foreground },
-    DapUIBreakpointsPath   = { fg = c.bright_foreground },
-    DapUIDecoration        = { fg = c.foreground },
-    DapUIFloatBorder       = { fg = c.bright_foreground },
-    DapUILineNumber        = { fg = c.bright_foreground },
-    DapUIModifiedValue     = { fg = c.bright_foreground, bold = true },
-    DapUIPlayPause         = { fg = c.light_foreground },
-    DapUIRestart           = { fg = c.light_foreground },
-    DapUIScope             = { fg = c.bright_foreground },
-    DapUISource            = { fg = c.foreground },
-    DapUIStepBack          = { fg = c.bright_foreground },
-    DapUIStepInto          = { fg = c.bright_foreground },
-    DapUIStepOut           = { fg = c.bright_foreground },
-    DapUIStepOver          = { fg = c.bright_foreground },
+    DapUIBreakpointsInfo   = { fg = c.light_fg },
+    DapUIBreakpointsPath   = { fg = c.bright_fg },
+    DapUIDecoration        = { fg = c.fg },
+    DapUIFloatBorder       = { fg = c.bright_fg },
+    DapUILineNumber        = { fg = c.bright_fg },
+    DapUIModifiedValue     = { fg = c.bright_fg, bold = true },
+    DapUIPlayPause         = { fg = c.light_fg },
+    DapUIRestart           = { fg = c.light_fg },
+    DapUIScope             = { fg = c.bright_fg },
+    DapUISource            = { fg = c.fg },
+    DapUIStepBack          = { fg = c.bright_fg },
+    DapUIStepInto          = { fg = c.bright_fg },
+    DapUIStepOut           = { fg = c.bright_fg },
+    DapUIStepOver          = { fg = c.bright_fg },
     DapUIStop              = { fg = c.accent },
-    DapUIStoppedThread     = { fg = c.bright_foreground },
-    DapUIThread            = { fg = c.light_foreground },
-    DapUIType              = { fg = c.foreground },
-    DapUIValue             = { fg = c.foreground },
-    DapUIVariable          = { fg = c.foreground },
+    DapUIStoppedThread     = { fg = c.bright_fg },
+    DapUIThread            = { fg = c.light_fg },
+    DapUIType              = { fg = c.fg },
+    DapUIValue             = { fg = c.fg },
+    DapUIVariable          = { fg = c.fg },
     DapUIWatchesEmpty      = { fg = c.accent },
     DapUIWatchesError      = { fg = c.accent },
-    DapUIWatchesValue      = { fg = c.light_foreground },
+    DapUIWatchesValue      = { fg = c.light_fg },
   }
 end
 

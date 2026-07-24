@@ -88,7 +88,7 @@ local function setup_patch_term_diff()
 	})
 end
 
----@param c ColorScheme
+---@param c tufte.ColorScheme
 ---@param opts tufte.Config
 ---@return tufte.Highlights
 function M.get(c, opts)
@@ -97,20 +97,20 @@ function M.get(c, opts)
   -- stylua: ignore
   return {
     gitcommitOverflow         = { fg = c.accent },
-    gitcommitSummary          = { fg = c.light_foreground },
+    gitcommitSummary          = { fg = c.light_fg },
     gitcommitComment          = { fg = c.muted, style = opts.styles.comments },
     gitcommitUntracked        = { fg = c.muted },
     gitcommitDiscarded        = { fg = c.muted },
     gitcommitSelected         = { fg = c.muted },
-    gitcommitHeader           = { fg = c.foreground },
-    gitcommitSelectedType     = { fg = c.foreground },
-    gitcommitUnmergedType     = { fg = c.foreground },
-    gitcommitDiscardedType    = { fg = c.foreground },
-    gitcommitBranch           = { fg = c.light_foreground, bold = true },
-    gitcommitUntrackedFile    = { fg = c.foreground },
-    gitcommitUnmergedFile     = { fg = c.foreground, bold = true },
-    gitcommitDiscardedFile    = { fg = c.foreground, bold = true },
-    gitcommitSelectedFile     = { fg = c.light_foreground, bold = true },
+    gitcommitHeader           = { fg = c.fg },
+    gitcommitSelectedType     = { fg = c.fg },
+    gitcommitUnmergedType     = { fg = c.fg },
+    gitcommitDiscardedType    = { fg = c.fg },
+    gitcommitBranch           = { fg = c.light_fg, bold = true },
+    gitcommitUntrackedFile    = { fg = c.fg },
+    gitcommitUnmergedFile     = { fg = c.fg, bold = true },
+    gitcommitDiscardedFile    = { fg = c.fg, bold = true },
+    gitcommitSelectedFile     = { fg = c.light_fg, bold = true },
   }
 end
 

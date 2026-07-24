@@ -2,7 +2,7 @@
 
 local M = {}
 
----@param c ColorScheme
+---@param c tufte.ColorScheme
 ---@param opts tufte.Config
 ---@return tufte.Highlights
 function M.get(c, opts)
@@ -11,7 +11,7 @@ function M.get(c, opts)
     CommentNormal = { fg = c.muted, style = opts.styles.comments },
     CommentBold   = { fg = c.muted, bold = true },
     CommentItalic = { fg = c.muted, italic = true },
-    CommentURL    = { fg = c.foreground, underline = true },
+    CommentURL    = { fg = c.fg, underline = true },
   }
 end
 

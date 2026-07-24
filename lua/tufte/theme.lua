@@ -1,5 +1,3 @@
-local Util = require("tufte.utils")
-
 local M = {}
 
 ---@param opts? tufte.Config
@@ -29,7 +27,7 @@ function M.setup(opts)
 	return colors, groups, opts
 end
 
----@param colors ColorScheme
+---@param colors tufte.ColorScheme
 function M.terminal(colors)
 	-- dark
 	vim.g.terminal_color_0 = colors.terminal.black
@@ -43,8 +41,8 @@ function M.terminal(colors)
 	vim.g.terminal_color_1 = colors.terminal.red
 	vim.g.terminal_color_9 = colors.terminal.red_bright
 
-	vim.g.terminal_color_2 = colors.terminal.green
-	vim.g.terminal_color_10 = colors.terminal.green_bright
+	vim.g.terminal_color_2 = colors.terminal.blue
+	vim.g.terminal_color_10 = colors.terminal.blue_bright
 
 	vim.g.terminal_color_3 = colors.terminal.yellow
 	vim.g.terminal_color_11 = colors.terminal.yellow_bright

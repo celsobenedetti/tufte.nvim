@@ -6,13 +6,13 @@
 
 local M = {}
 
----@param c ColorScheme
+---@param c tufte.ColorScheme
 ---@return tufte.Highlights
 function M.get(c)
   -- stylua: ignore
   return {
-    DropBarMenuNormalFloat = { fg = c.foreground, bg = c.background },
-    DropBarMenuFloatBorder = { fg = c.bright_foreground, bg = c.background },
+    DropBarMenuNormalFloat = { fg = c.fg, bg = c.bg },
+    DropBarMenuFloatBorder = { fg = c.bright_fg, bg = c.bg },
   }
 end
 

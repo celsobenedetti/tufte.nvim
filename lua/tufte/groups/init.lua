@@ -37,7 +37,7 @@ function M.get_group(name)
 	return nil
 end
 
----@param colors ColorScheme
+---@param colors tufte.ColorScheme
 ---@param opts tufte.Config
 ---@return tufte.Highlights
 function M.get(name, colors, opts)
@@ -48,7 +48,7 @@ function M.get(name, colors, opts)
 	return {}
 end
 
----@param colors ColorScheme
+---@param colors tufte.ColorScheme
 ---@param opts tufte.Config
 function M.setup(colors, opts)
 	local groups = {

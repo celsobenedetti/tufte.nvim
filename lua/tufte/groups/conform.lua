@@ -2,13 +2,13 @@
 
 local M = {}
 
----@param c ColorScheme
+---@param c tufte.ColorScheme
 ---@return tufte.Highlights
 function M.get(c)
   -- stylua: ignore
   return {
-    ConformProgress = { fg = c.foreground },
-    ConformDone     = { fg = c.light_foreground },
+    ConformProgress = { fg = c.fg },
+    ConformDone     = { fg = c.light_fg },
     ConformError    = { fg = c.error },
   }
 end
