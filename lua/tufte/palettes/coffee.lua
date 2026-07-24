@@ -13,7 +13,7 @@
 return {
 	bg = "#fffcf0", -- creamy off-white paper
 	tiers = {
-		"#E5E0D3", -- T1 faint chrome: gutter, line numbers
+		"#E9E5D9", -- T1 faint chrome: gutter, line numbers
 		"#857b6f", -- T2 comments
 		"#6c6052", -- T3 operators, punctuation, hints
 		"#5d5042", -- T4 strings, numbers, secondary data

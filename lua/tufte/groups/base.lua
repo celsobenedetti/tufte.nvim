@@ -25,7 +25,7 @@ function M.get(c, opts)
     ErrorMsg                    = { fg = c.error, bold = true },
     VertSplit                   = { fg = c.border },
     WinSeparator                = { fg = c.border },
-    Folded                      = { fg = c.blue, bg = c.fg_gutter, style = opts.styles.comments },
+    Folded                      = { bg = "#F4F0E4" }, -- WIP: come up with better way to handle folded
     FoldColumn                  = { bg = opts.transparent and c.none or c.bg, fg = c.comment },
     SignColumn                  = { bg = opts.transparent and c.none or c.bg, fg = c.fg_gutter },
     SignColumnSB                = { bg = c.bg_sidebar, fg = c.fg_gutter },
