@@ -41,7 +41,7 @@ function M.get(c, opts)
     Normal                      = { fg = c.fg, bg = opts.transparent and "NONE" or c.bg },
     NormalNC                    = { fg = c.fg, bg = opts.transparent and "NONE" or opts.dim_inactive and c.dark_bg or c.bg },
     NormalSB                    = { fg = c.fg, bg = opts.styles.sidebars == "transparent" and "NONE" or opts.styles.sidebars == "dark" and c.dark_bg or c.bg },
-    NormalFloat                 = { fg = c.fg, bg = opts.styles.floats == "transparent" and "NONE" or opts.styles.floats == "dark" and c.dark_bg or c.bg },
+    NormalFloat                 = { fg = c.fg, bg = c.lighter_bg },
     FloatBorder                 = { fg = c.bright_fg, bg = opts.styles.floats == "transparent" and "NONE" or opts.styles.floats == "dark" and c.dark_bg or c.bg },
     FloatTitle                  = { fg = c.bright_fg, bg = opts.styles.floats == "transparent" and "NONE" or opts.styles.floats == "dark" and c.dark_bg or c.bg, bold = true },
     Pmenu                       = { bg = c.dark_bg, fg = c.fg },
