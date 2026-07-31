@@ -5,6 +5,9 @@ A minimal light colorscheme inspired by the discipline of
 with a vermillion ![#a00000](https://placehold.co/15x15/a00000/a00000) `#a00000`
 accent toward Tufte Design.
 
+**first principles**: clarity and readibility - optimize for reading and
+comprehending
+
 ## installation
 
 ```lua
