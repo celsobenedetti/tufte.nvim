@@ -60,7 +60,7 @@ function M.get(c, opts)
     SpellCap                    = { sp = c.warning, undercurl = true },
     SpellLocal                  = { sp = c.info, undercurl = true },
     SpellRare                   = { sp = c.hint, undercurl = true },
-    StatusLine                  = { fg = c.bright_fg, bg = c.bg },
+    StatusLine                  = { fg = c.bright_fg, bg = c.bg2 },
     StatusLineNC                = { fg = c.muted, bg = c.bg },
     TabLine                     = { bg = c.dark_bg, fg = c.fg },
     TabLineFill                 = { bg = c.bg },

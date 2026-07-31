@@ -10,6 +10,7 @@ local M = {}
 
 ---@class tufte.Palette
 ---@field bg string
+---@field bg2 string
 ---@field fg string
 ---@field tiers string[] -- 10 entries, T1 faintest (near bg) -> T10 (near fg)
 ---@field accent string  -- vermillion, used sparingly

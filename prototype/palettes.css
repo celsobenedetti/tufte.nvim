@@ -11,46 +11,73 @@
 /* Tufte variant — creamy paper, off-black ink (Tufte-CSS canonical).  */
 :root.palette-cannonical {
   --bg: #fffcf0;
-  --t1: #cfcfca;
-  --t2: #7c7c79;
-  --t3: #5d5d5b;
-  --t4: #4a4a48;
-  --t5: #3c3c3b;
-  --t6: #292928;
-  --t7: #111111;
-  --t8: #a00000;
-  --t9: #ffec99;
-  --t10: #055656;
-  --t11: #d0ffd0;
-  --t12: #ffd7d7;
-  --t13: #afffaf;
-  --t14: #ffb6b6;
+  --bg2: #f7f3e6;
+  --t1: #e9e9e3;
+  --t2: #d4d4ce;
+  --t3: #bebeb9;
+  --t4: #a8a8a4;
+  --t5: #93938f;
+  --t6: #7d7d7a;
+  --t7: #686865;
+  --t8: #525250;
+  --t9: #3c3c3b;
+  --t10: #272726;
+  --t11: #a00000;
+  --t12: #ffec99;
+  --t13: #d0ffd0;
+  --t14: #ffd7d7;
+  --t15: #afffaf;
+  --t16: #ffb6b6;
   --accent: #a00000;
   --highlight: #ffec99;
-  --secondary: #055656;
   --wallpaper: #e5e2d8;
 }
 
 /* Coffee variant — creamy paper, warm "black coffee" ink.  */
 :root.palette-coffee {
   --bg: #fffcf0;
-  --t1: #E5E0D3;
-  --t2: #857b6f;
-  --t3: #6c6052;
-  --t4: #5d5042;
-  --t5: #514333;
-  --t6: #403020;
-  --t7: #2d1c0b;
-  --t8: #a00000;
-  --t9: #ffec99;
-  --t10: #055656;
-  --t11: #d0ffd0;
-  --t12: #ffd7d7;
-  --t13: #afffaf;
-  --t14: #ffb6b6;
+  --bg2: #f7f3e6;
+  --t1: #ece8db;
+  --t2: #d9d3c6;
+  --t3: #c6bfb2;
+  --t4: #b3ab9d;
+  --t5: #a09688;
+  --t6: #8c8273;
+  --t7: #796d5e;
+  --t8: #665949;
+  --t9: #534535;
+  --t10: #403020;
+  --t11: #a00000;
+  --t12: #ffec99;
+  --t13: #d0ffd0;
+  --t14: #ffd7d7;
+  --t15: #afffaf;
+  --t16: #ffb6b6;
   --accent: #a00000;
   --highlight: #ffec99;
-  --secondary: #055656;
   --wallpaper: #e5e2d8;
+}
+
+/* Dark variant — inverted canonical (Tufte-CSS off-black, paper <-> ink swapped).  */
+:root.palette-dark {
+  --bg: #2d1c0b;
+  --bg2: #241609;
+  --t1: #303030;
+  --t2: #857b6f;
+  --t3: #a2a2a2;
+  --t4: #b5b5b5;
+  --t5: #c3c3c3;
+  --t6: #d6d6d6;
+  --t7: #fffcf0;
+  --t8: #f57f82;
+  --t9: #6f8788;
+  --t10: #adc9bc;
+  --t11: #002800;
+  --t12: #3f0000;
+  --t13: #006000;
+  --t14: #901011;
+  --accent: #f57f82;
+  --highlight: #6f8788;
+  --wallpaper: #281909;
 }
 

@@ -18,6 +18,7 @@
 ---@type tufte.Palette
 return {
 	bg = "#2d1c0b", -- near-black paper (canonical's ink, promoted to bg)
+	bg2 = "#241609", -- slightly darker than bg
 	tiers = {
 		"#303030", -- T1 faint chrome: gutter, line numbers
 		"#857b6f", -- T2 comments

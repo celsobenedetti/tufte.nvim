@@ -173,9 +173,9 @@
         font-weight: 600;
       } /* T7 functions (definitions) */
       .call {
-        color: var(--secondary);
+        color: var(--t9);
         font-weight: 600;
-      } /* secondary — function CALLS, Special */
+      } /* T9 bright_fg — function calls, mirrors @function.call */
       .kw {
         color: var(--t7);
         font-style: italic;
@@ -201,29 +201,25 @@
       /* ---- statusline ---- */
       .statusline {
         display: flex;
-        align-items: stretch;
+        align-items: center;
         font-size: 12.5px;
-        background: var(--bg-dark);
+        background: var(--bg2);
         border-top: 1px solid var(--rule);
-        color: var(--t4);
-      }
-      .statusline .mode {
-        background: var(--t7);
-        color: var(--bg);
-        padding: 5px 14px;
-        font-weight: 700;
-        letter-spacing: 0.5px;
+        color: var(--t7);
       }
       .statusline .seg {
-        padding: 5px 12px;
+        padding: 5px 10px;
       }
       .statusline .seg.file {
-        color: var(--t6);
+        font-weight: 700;
       }
       .statusline .grow {
         flex: 1;
       }
-      .statusline .seg.err {
+      .statusline .warn {
+        color: var(--highlight);
+      }
+      .statusline .remove {
         color: var(--accent);
       }
 
@@ -315,13 +311,15 @@
         <pre class="src" id="src"></pre>
       </div>
       <div class="statusline">
-        <span class="mode">NORMAL</span>
-        <span class="seg file">init.lua</span>
-        <span class="seg">lua</span>
+        <span class="seg file">lua/tufte/palettes/coffee.lua</span>
+        <span class="seg diff"
+          >+2 ~1 <span class="remove">-1</span></span
+        >
         <span class="grow"></span>
-        <span class="seg err">● 1</span>
-        <span class="seg">utf-8</span>
-        <span class="seg">42:17</span>
+        <span class="seg warn">1</span>
+        <span class="seg">lua_ls</span>
+        <span class="seg sep">|</span>
+        <span class="seg branch">⎇ main</span>
       </div>
     </div>
 
@@ -341,20 +339,21 @@
         cannonical: {
           name: "Off-black (Tufte-CSS canonical)",
           desc:
-            "Text = <b>#111111</b> exactly per the Tufte-CSS spec, the seven" +
-            " tiers a cool-neutral gray ramp.  The most literal reading of the" +
-            " source note — restrained, closest to ink-on-paper. A deep teal" +
-            " <b>secondary</b> ink marks <code>Special</code> and function calls.",
+            "Text = <b>#111111</b> exactly per the Tufte-CSS spec, a" +
+            " cool-neutral gray ramp between paper and ink. The most literal" +
+            " reading of the source note — restrained, closest to" +
+            " ink-on-paper. <code>Special</code> and function calls render in" +
+            " <b>bright fg</b>, one tier off full ink.",
           fg_comment: "off-black ink",
         },
         coffee: {
           name: "Black-coffee ink (warm variant)",
           desc:
-            "A whisper of warmth over the canonical ramp: the seven tiers" +
-            " blend cream into <b>#2d1c0b</b> (black coffee) with mid-tones" +
-            " nudged warm, so grays read as coffee, not gray. A verdigris" +
-            " <b>secondary</b> ink — teal warmed toward the coffee ink — marks" +
-            " <code>Special</code> and function calls.",
+            "A whisper of warmth over the canonical ramp: the tiers blend" +
+            " cream into <b>#2d1c0b</b> (black coffee) with mid-tones nudged" +
+            " warm, so grays read as coffee, not gray." +
+            " <code>Special</code> and function calls render in" +
+            " <b>bright fg</b>, one tier off full ink.",
           fg_comment: "black coffee ink",
         },
       };
@@ -368,7 +367,7 @@
           tiers: [1, 2, 3, 4, 5, 6, 7].map((i) => get("--t" + i)),
           accent: get("--accent"),
           highlight: get("--highlight"),
-          secondary: get("--secondary"),
+          brightFg: get("--t9"),
           wallpaper: get("--wallpaper"),
         };
       }
@@ -458,7 +457,7 @@
           },
           {
             n: 22,
-            html: `  <span class="typ">Special</span> <span class="op">=</span> <span class="op">{</span> <span class="var">fg</span> <span class="op">=</span> <span class="var">c</span><span class="op">.</span><span class="call">secondary</span> <span class="op">}</span>`,
+            html: `  <span class="typ">Special</span> <span class="op">=</span> <span class="op">{</span> <span class="var">fg</span> <span class="op">=</span> <span class="var">c</span><span class="op">.</span><span class="var">bright_fg</span> <span class="op">}</span>`,
           },
           {
             n: 23,
@@ -522,8 +521,8 @@
       <span class="lab">${LABELS[i]}</span><span class="hex">${c}</span></div>`;
             })
             .join("") +
-          `<div class="chip" style="background:${colors.secondary};color:${colors.bg}">
-      <span class="lab">secondary</span><span class="hex">${colors.secondary}</span></div>` +
+          `<div class="chip" style="background:${colors.brightFg};color:${colors.bg}">
+      <span class="lab">bright fg</span><span class="hex">${colors.brightFg}</span></div>` +
           `<div class="chip" style="background:${colors.accent};color:${colors.bg}">
       <span class="lab">accent</span><span class="hex">${colors.accent}</span></div>`;
 
@@ -531,7 +530,7 @@
         document.getElementById("v-title").textContent =
           "tufte.nvim — " + v.name;
         document.getElementById("v-sub").textContent =
-          `bg ${colors.bg}  ·  fg ${t[6]}  ·  secondary ${colors.secondary}  ·  accent ${colors.accent}  ·  highlight ${colors.highlight}`;
+          `bg ${colors.bg}  ·  fg ${t[6]}  ·  bright fg ${colors.brightFg}  ·  accent ${colors.accent}  ·  highlight ${colors.highlight}`;
         document.getElementById("v-desc").innerHTML = v.desc;
         document.getElementById("k").textContent = key.toUpperCase();
         document.getElementById("name").textContent = " " + v.name;

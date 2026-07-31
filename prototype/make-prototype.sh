@@ -56,6 +56,8 @@ HEADER
 
     # Extract values from Lua
     bg=$(extract_hex < <(grep 'bg *=.*"' "$lua_file"))
+    bg2=$(extract_hex < <(grep 'bg2 *=.*"' "$lua_file"))
+    bg2=${bg2:-$bg}
     tiers=()
     while IFS= read -r line; do
       tiers+=("$line")
@@ -63,7 +65,6 @@ HEADER
 
     accent=$(extract_hex < <(grep 'accent *=.*"' "$lua_file"))
     highlight=$(extract_hex < <(grep 'highlight *=.*"' "$lua_file"))
-    secondary=$(extract_hex < <(grep 'secondary *=.*"' "$lua_file"))
 
     # First line of the Lua file is a `--` comment → palette subtitle
     desc=$(head -1 "$lua_file" | sed 's/^-- *//')
@@ -76,12 +77,12 @@ HEADER
     echo ":root.palette-${name} {"
 
     echo "  --bg: ${bg};"
+    echo "  --bg2: ${bg2};"
     for i in "${!tiers[@]}"; do
       echo "  --t$((i + 1)): ${tiers[$i]};"
     done
     echo "  --accent: ${accent};"
     echo "  --highlight: ${highlight};"
-    echo "  --secondary: ${secondary};"
     echo "  --wallpaper: ${wallpaper};"
 
     echo "}"
