@@ -7,8 +7,8 @@
 --
 ---@type tufte.Palette
 return {
-	bg = "#fffcf0", -- creamy off-white paper
-	bg2 = "#f7f3e6", -- slightly darker than bg, creamier
+	bg = "#f5eddf", -- creamy off-white paper
+	bg2 = "#E7E0D3", -- slightly darker than bg, creamier
 	fg = "#2d1c0b", -- black coffee ink
 	tiers = {
 		"#ece8db", -- T1 faintest: gutter, chrome

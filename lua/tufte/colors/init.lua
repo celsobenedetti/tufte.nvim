@@ -62,7 +62,7 @@ local function build_colorscheme(p)
 		p,
 		--- @type tufte.ColorScheme
 		{
-			lighter_bg = t[1], -- faintest chrome: gutter, line numbers
+			lighter_bg = p.bg2, -- faintest chrome: gutter, line numbers
 			dark_bg = t[2],
 			darker_bg = t[3],
 
