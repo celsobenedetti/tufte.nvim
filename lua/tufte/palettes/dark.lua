@@ -5,32 +5,37 @@
 -- the canonical cream paper becomes the ink. Tiers are the per-channel
 -- inverse of the canonical ramp (then rounded to clean neutral grays, since
 -- the cream's faint warmth would otherwise invert into an equally faint,
--- meaningless cool tint). accent/secondary/highlight/diff keep their hue but
--- are re-picked (not inverted) for legibility against a dark background: the
--- canonical highlight/diff backgrounds are near-white pastel washes meant to
--- sit *under* dark ink, which would look wrong (and under-contrast light ink)
--- on a dark bg, so this variant uses dark, muted washes instead.
+-- meaningless cool tint). bg/fg are the paper and ink endpoints; tiers are
+-- the ramp between them, faintest (T1, near bg) to darkest (T10, near fg).
+-- accent/highlight/diff keep their hue but are re-picked (not inverted) for
+-- legibility against a dark background: the canonical highlight/diff
+-- backgrounds are near-white pastel washes meant to sit *under* dark ink,
+-- which would look wrong (and under-contrast light ink) on a dark bg, so this
+-- variant uses dark, muted washes instead.
 --
--- tiers: T1 faint chrome -> T7 focus. Contrast vs bg (WCAG):
---   T1 1.47  T2 5.13  T3 7.61  T4 9.48  T5 11.03  T6 13.37  T7 16.75
---   secondary 10.41 (bright teal, same family as canonical's deep teal)
+-- tiers: T1 faint chrome -> T10 near-ink. Contrast vs bg (WCAG):
+--   T1 1.24  T2 1.80  T3 2.68  T4 3.95  T5 6.41  T6 7.99  T7 9.29
+--   T8 11.27  T9 12.72  T10 14.25
 --
 ---@type tufte.Palette
 return {
 	bg = "#2d1c0b", -- near-black paper (canonical's ink, promoted to bg)
 	bg2 = "#241609", -- slightly darker than bg
+	fg = "#fffcf0", -- canonical's paper, promoted to ink
 	tiers = {
-		"#303030", -- T1 faint chrome: gutter, line numbers
-		"#857b6f", -- T2 comments
-		"#a2a2a2", -- T3 operators, punctuation, hints
-		"#b5b5b5", -- T4 strings, numbers, secondary data
-		"#c3c3c3", -- T5 variables, properties, constructors
-		"#d6d6d6", -- T6 types, statements, titles
-		"#fffcf0", -- T7 functions, keywords, main foreground (canonical's paper, promoted to ink)
+		"#241609", -- T1
+		"#534535", -- T2
+		"#665949", -- T3
+		"#796d5e", -- T4
+		"#8c8273", -- T5
+		"#a09688", -- T6
+		"#b3ab9d", -- T7
+		"#c6bfb2", -- T8
+		"#d9d3c6", -- T9
+		"#ece8db", -- T10
 	},
 	accent = "#f57f82", -- vermillion: errors, deletions only (rare, sparing)
-	highlight = "#6f8788", -- dark gold: search, selection, todo (a wash, not a pastel — dark ink washes don't invert to a light bg)
-	secondary = "#adc9bc", -- bright teal: Special, function calls
+	highlight = "#ffec99", -- dark gold: search, selection, todo (a wash, not a pastel — dark ink washes don't invert to a light bg)
 
 	-- Standard diff add/remove colors. Dark, muted washes (not canonical's
 	-- pastels) so the theme's light ink stays legible drawn on top — see the
