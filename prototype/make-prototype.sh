@@ -7,7 +7,7 @@
 #
 #  Usage:
 #    ./make-prototype.sh
-#    # then open prototype/tufte-colors.html in a browser
+#    # then open prototype/index.html in a browser
 # ===========================================================================
 set -euo pipefail
 
@@ -32,6 +32,17 @@ extract_hex() {
   sed -n 's/.*"\(#[0-9a-fA-F]*\)".*/\1/p'
 }
 
+# Print every "#hexvalue" (in order) inside a Lua block such as
+# "tiers = {...}" or "diff = {...}". Bounded by the block's closing brace.
+block_hexes() {
+  local field=$1 lua_file=$2
+  awk -v f="$field" '
+    $0 ~ "^[[:space:]]*" f "[[:space:]]*=" { in_block = 1; next }
+    in_block && /^[[:space:]]*}/ { exit }
+    in_block && /"#[0-9a-fA-F]+"/ { print }
+  ' "$lua_file" | extract_hex
+}
+
 # ---- main ------------------------------------------------------------------
 
 mkdir -p "$(dirname "$OUTPUT")"
@@ -45,7 +56,7 @@ mkdir -p "$(dirname "$OUTPUT")"
  *    cd prototype && ./make-prototype.sh
  *
  *  Each palette variant is a class on :root that sets CSS custom properties
- *  consumed by tufte-colors.html.
+ *  consumed by index.html.
  * ========================================================================== */
 
 HEADER
@@ -58,13 +69,25 @@ HEADER
     bg=$(extract_hex < <(grep 'bg *=.*"' "$lua_file"))
     bg2=$(extract_hex < <(grep 'bg2 *=.*"' "$lua_file"))
     bg2=${bg2:-$bg}
+    fg=$(extract_hex < <(grep 'fg *=.*"' "$lua_file"))
+    fg=${fg:-$bg}
     tiers=()
     while IFS= read -r line; do
       tiers+=("$line")
-    done < <(sed -n '/tiers = {/,/^  *}/p' "$lua_file" | grep '"#' | extract_hex)
+    done < <(block_hexes "tiers" "$lua_file")
 
     accent=$(extract_hex < <(grep 'accent *=.*"' "$lua_file"))
     highlight=$(extract_hex < <(grep 'highlight *=.*"' "$lua_file"))
+
+    # Diff add/remove colors (line-level, then char-level emphasis).
+    diff_colors=()
+    while IFS= read -r line; do
+      diff_colors+=("$line")
+    done < <(block_hexes "diff" "$lua_file")
+    if [ ${#diff_colors[@]} -lt 4 ]; then
+      # Fall back to the canonical pastel washes when a palette omits diff.
+      diff_colors=("#d0ffd0" "#ffd7d7" "#afffaf" "#ffb6b6")
+    fi
 
     # First line of the Lua file is a `--` comment → palette subtitle
     desc=$(head -1 "$lua_file" | sed 's/^-- *//')
@@ -78,8 +101,15 @@ HEADER
 
     echo "  --bg: ${bg};"
     echo "  --bg2: ${bg2};"
+    echo "  --fg: ${fg};"
     for i in "${!tiers[@]}"; do
       echo "  --t$((i + 1)): ${tiers[$i]};"
+    done
+    n=${#tiers[@]}
+    echo "  --t$((n + 1)): ${accent};"
+    echo "  --t$((n + 2)): ${highlight};"
+    for i in "${!diff_colors[@]}"; do
+      echo "  --t$((n + 3 + i)): ${diff_colors[$i]};"
     done
     echo "  --accent: ${accent};"
     echo "  --highlight: ${highlight};"

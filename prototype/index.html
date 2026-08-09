@@ -72,12 +72,11 @@
           0 10px 40px rgba(0, 0, 0, 0.14),
           0 2px 8px rgba(0, 0, 0, 0.08);
         background: var(--bg);
-        color: var(--t7);
+        color: var(--fg);
 
         --bg-dark: color-mix(in srgb, var(--bg), var(--t6) 5%);
         --bg-gutter: color-mix(in srgb, var(--bg), var(--t6) 2.5%);
         --rule: color-mix(in srgb, var(--bg), var(--t6) 10%);
-        --cursorline: color-mix(in srgb, var(--bg), var(--t6) 5%);
       }
       .titlebar {
         display: flex;
@@ -88,7 +87,7 @@
         border-bottom: 1px solid var(--rule);
         font-family: ui-monospace, monospace;
         font-size: 12px;
-        color: var(--t3);
+        color: var(--fg);
       }
       .dot {
         width: 11px;
@@ -117,17 +116,18 @@
       .gutter {
         text-align: right;
         padding: 14px 10px 14px 16px;
-        color: var(--t1);
+        color: var(--t4);
         user-select: none;
         background: var(--bg-gutter);
         border-right: 1px solid var(--rule);
         white-space: pre;
       }
       .gutter .cur {
-        color: var(--t3);
+        color: var(--t7);
+        font-weight: 600;
       }
       .gutter .sign-add {
-        color: var(--t5);
+        color: var(--t9);
       }
       .gutter .sign-del {
         color: var(--accent);
@@ -143,49 +143,54 @@
         display: block;
       }
       .line.cursor {
-        background: var(--cursorline);
+        background: var(--t2);
         margin: 0 -18px;
         padding: 0 18px;
       }
 
-      /* token → luminance tier mapping (mirrors lua/tufte/colors/init.lua) */
+      /* token → highlight group mapping (group colours from
+         lua/tufte/groups/base.lua + treesitter.lua, roles from
+         lua/tufte/colors/init.lua) */
       .cmt {
-        color: var(--t2);
+        color: var(--t4);
         font-style: italic;
-      } /* T2 comments */
+      } /* @comment → Comment = muted (T4) */
       .op {
-        color: var(--t3);
-      } /* T3 operators / punctuation */
-      .str {
-        color: var(--t4);
-      } /* T4 strings */
-      .num {
-        color: var(--t4);
-      } /* T4 numbers */
-      .var {
         color: var(--t5);
-      } /* T5 variables / properties */
-      .typ {
-        color: var(--t6);
-      } /* T6 types / statements */
-      .fn {
+      } /* @operator / @punctuation → dark_fg (T5) */
+      .str {
         color: var(--t7);
+      } /* @string → String = light_fg (T7) */
+      .num {
+        color: var(--t7);
+      } /* @number / @boolean → Number / Boolean = light_fg (T7) */
+      .var {
+        color: var(--t9);
+      } /* @variable / @property / @variable.member → bright_fg (T9) */
+      .typ {
+        color: var(--fg);
         font-weight: 600;
-      } /* T7 functions (definitions) */
+      } /* @type → Type = fg, bold */
+      .fn {
+        color: var(--fg);
+        font-weight: 600;
+      } /* @function → Function = fg, bold */
       .call {
         color: var(--t9);
         font-weight: 600;
-      } /* T9 bright_fg — function calls, mirrors @function.call */
+      } /* @function.call → bright_fg (T9) */
       .kw {
-        color: var(--t7);
+        color: var(--fg);
         font-style: italic;
-      } /* T7 keywords */
+      } /* @keyword → fg, italic */
       .fg {
-        color: var(--t7);
-      } /* main fg */
+        color: var(--fg);
+      } /* Normal = fg */
       .sel {
         background: var(--highlight);
-      } /* yellow selection */
+        color: var(--fg);
+        font-weight: 600;
+      } /* Search = bg highlight, fg ink, bold */
       .accent {
         color: var(--accent);
       } /* vermillion — RARE */
@@ -203,9 +208,9 @@
         display: flex;
         align-items: center;
         font-size: 12.5px;
-        background: var(--bg2);
+        background: var(--t1);
         border-top: 1px solid var(--rule);
-        color: var(--t7);
+        color: var(--t9);
       }
       .statusline .seg {
         padding: 5px 10px;
@@ -356,6 +361,18 @@
             " <b>bright fg</b>, one tier off full ink.",
           fg_comment: "black coffee ink",
         },
+        dark: {
+          name: "Dark (inverted canonical)",
+          desc:
+            "The canonical paper/ink swap: off-black paper, cream ink." +
+            " Tiers run dark-to-light, the per-channel inverse of the" +
+            " canonical ramp (T1 faint chrome near the paper, T10 near the" +
+            " ink). accent/highlight keep their hue but are re-picked for a" +
+            " dark bg; diff uses dark, muted washes." +
+            " <code>Special</code> and function calls render in" +
+            " <b>bright fg</b>, near full ink.",
+          fg_comment: "cream ink",
+        },
       };
 
       // ---------- read current palette colours from CSS variables ----------
@@ -364,7 +381,8 @@
         const get = (n) => s.getPropertyValue(n).trim();
         return {
           bg: get("--bg"),
-          tiers: [1, 2, 3, 4, 5, 6, 7].map((i) => get("--t" + i)),
+          fg: get("--fg"),
+          tiers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => get("--t" + i)),
           accent: get("--accent"),
           highlight: get("--highlight"),
           brightFg: get("--t9"),
@@ -372,16 +390,17 @@
         };
       }
 
-      // ---------- code sample builder (token classes: cmt op str num var typ fn kw accent) ----------
+      // ---------- code sample builder (token classes: cmt op str num var typ fn call kw accent) ----------
       // Builds the palette object + a mock setup function with a spurious lint diagnostic.
+      // Token → group mapping mirrors lua/tufte/groups/{base,treesitter}.lua.
       function buildLines(colors, meta) {
         const t = colors.tiers;
         // The line where `local c` is declared (needed for the diagnostic message)
-        const cLine = 20;
+        const cLine = 23;
         return [
           {
             n: 1,
-            html: `<span class="cmt">--- The seven luminance tiers: T1 faint chrome → T7 focus</span>`,
+            html: `<span class="cmt">--- Ten luminance tiers: T1 faint chrome → T10 near ink</span>`,
           },
           {
             n: 2,
@@ -389,11 +408,11 @@
           },
           {
             n: 3,
-            html: `  <span class="var">bg</span>    <span class="op">=</span> <span class="str">"${colors.bg}"</span><span class="op">,</span>  <span class="cmt">-- creamy off-white paper</span>`,
+            html: `  <span class="var">bg</span>    <span class="op">=</span> <span class="str">"${colors.bg}"</span><span class="op">,</span>  <span class="cmt">-- paper</span>`,
           },
           {
             n: 4,
-            html: `  <span class="var">fg</span>    <span class="op">=</span> <span class="str">"${t[6]}"</span><span class="op">,</span>  <span class="cmt">-- ${meta.fg_comment}</span>`,
+            html: `  <span class="var">fg</span>    <span class="op">=</span> <span class="str">"${colors.fg}"</span><span class="op">,</span>  <span class="cmt">-- ${meta.fg_comment}</span>`,
           },
           {
             n: 5,
@@ -409,74 +428,89 @@
           },
           {
             n: 8,
-            html: `    <span class="str">"${t[0]}"</span><span class="op">,</span> <span class="cmt">-- T1 faint chrome: gutter, line numbers</span>`,
+            html: `    <span class="str">"${t[0]}"</span><span class="op">,</span> <span class="cmt">-- T1 chrome: folded, statusline bg</span>`,
           },
           {
             n: 9,
-            html: `    <span class="str">"${t[1]}"</span><span class="op">,</span> <span class="cmt">-- T2 comments</span>`,
+            html: `    <span class="str">"${t[1]}"</span><span class="op">,</span> <span class="cmt">-- T2 cursorline, popups (dark_bg)</span>`,
           },
           {
             n: 10,
-            html: `    <span class="str">"${t[2]}"</span><span class="op">,</span> <span class="cmt">-- T3 operators, punctuation, hints</span>`,
+            html: `    <span class="str">"${t[2]}"</span><span class="op">,</span> <span class="cmt">-- T3 colorcolumn, refs (darker_bg)</span>`,
           },
           {
             n: 11,
-            html: `    <span class="str">"${t[3]}"</span><span class="op">,</span> <span class="cmt">-- T4 strings, numbers, secondary data</span>`,
+            html: `    <span class="str">"${t[3]}"</span><span class="op">,</span> <span class="cmt">-- T4 comments, line numbers (muted)</span>`,
           },
           {
             n: 12,
-            html: `    <span class="str">"${t[4]}"</span><span class="op">,</span> <span class="cmt">-- T5 variables, properties, constructors</span>`,
+            html: `    <span class="str">"${t[4]}"</span><span class="op">,</span> <span class="cmt">-- T5 operators, punctuation (dark_fg)</span>`,
           },
           {
             n: 13,
-            html: `    <span class="str">"${t[5]}"</span><span class="op">,</span> <span class="cmt">-- T6 types, statements, titles</span>`,
+            html: `    <span class="str">"${t[5]}"</span><span class="op">,</span> <span class="cmt">-- T6 (unused)</span>`,
           },
           {
             n: 14,
-            html: `    <span class="str">"${t[6]}"</span><span class="op">,</span> <span class="cmt">-- T7 functions, keywords (main fg)</span>`,
+            html: `    <span class="str">"${t[6]}"</span><span class="op">,</span> <span class="cmt">-- T7 strings, numbers, booleans (light_fg)</span>`,
           },
-          { n: 15, html: `  <span class="op">},</span>` },
-          { n: 16, html: `<span class="op">}</span>` },
-          { n: 17, html: `` },
           {
-            n: 18,
+            n: 15,
+            html: `    <span class="str">"${t[7]}"</span><span class="op">,</span> <span class="cmt">-- T8 (unused)</span>`,
+          },
+          {
+            n: 16,
+            html: `    <span class="str">"${t[8]}"</span><span class="op">,</span> <span class="cmt">-- T9 variables, calls, special (bright_fg)</span>`,
+          },
+          {
+            n: 17,
+            html: `    <span class="str">"${t[9]}"</span><span class="op">,</span> <span class="cmt">-- T10 (unused)</span>`,
+          },
+          { n: 18, html: `  <span class="op">},</span>` },
+          { n: 19, html: `<span class="op">}</span>` },
+          { n: 20, html: `` },
+          {
+            n: 21,
             html: `<span class="cmt">--- Map a syntax group onto a tier by prominence.</span>`,
           },
           {
-            n: 19,
-            html: `<span class="kw">function</span> <span class="typ">M</span><span class="op">.</span><span class="fn">setup</span><span class="op">(</span><span class="var">opts</span><span class="op">)</span>`,
+            n: 22,
+            html: `<span class="kw">function</span> <span class="var">M</span><span class="op">.</span><span class="fn">setup</span><span class="op">(</span><span class="var">opts</span><span class="op">)</span>`,
             cursor: true,
           },
           {
-            n: 20,
+            n: 23,
             html: `  <span class="kw">local</span> <span class="var">c</span> <span class="op">=</span> <span class="var">vim</span><span class="op">.</span><span class="call">tbl_extend</span><span class="op">(</span><span class="str">"force"</span><span class="op">,</span> <span class="var">palette</span><span class="op">,</span> <span class="var">opts</span><span class="op">)</span>`,
           },
           {
-            n: 21,
-            html: `  <span class="typ">Comment</span> <span class="op">=</span> <span class="op">{</span> <span class="var">fg</span> <span class="op">=</span> <span class="var">c</span><span class="op">.</span><span class="var">tiers</span><span class="op">[</span><span class="num">2</span><span class="op">]</span><span class="op">,</span> <span class="var">italic</span> <span class="op">=</span> <span class="kw">true</span> <span class="op">}</span>`,
+            n: 24,
+            html: `  <span class="var">Comment</span> <span class="op">=</span> <span class="op">{</span> <span class="var">fg</span> <span class="op">=</span> <span class="var">c</span><span class="op">.</span><span class="var">muted</span><span class="op">,</span> <span class="var">italic</span> <span class="op">=</span> <span class="num">true</span> <span class="op">}</span>`,
           },
           {
-            n: 22,
-            html: `  <span class="typ">Special</span> <span class="op">=</span> <span class="op">{</span> <span class="var">fg</span> <span class="op">=</span> <span class="var">c</span><span class="op">.</span><span class="var">bright_fg</span> <span class="op">}</span>`,
+            n: 25,
+            html: `  <span class="var">Special</span> <span class="op">=</span> <span class="op">{</span> <span class="var">fg</span> <span class="op">=</span> <span class="var">c</span><span class="op">.</span><span class="var">bright_fg</span> <span class="op">}</span>`,
           },
           {
-            n: 23,
+            n: 26,
             html: `  <span class="kw">return</span> <span class="call">apply</span><span class="op">(</span><span class="sel">c, opts.groups</span><span class="op">)</span>`,
             diag: "unused local `c` — shadows line " + cLine,
           },
-          { n: 24, html: `<span class="kw">end</span>` },
+          { n: 27, html: `<span class="kw">end</span>` },
         ];
       }
 
       // token classes (same) also used in the ramp swatches
       const LABELS = [
         "T1 chrome",
-        "T2 comment",
-        "T3 punct",
-        "T4 string",
-        "T5 var",
-        "T6 type",
-        "T7 focus",
+        "T2 cursorline",
+        "T3 ref bg",
+        "T4 comment",
+        "T5 punct",
+        "T6 unused",
+        "T7 string",
+        "T8 unused",
+        "T9 var/call",
+        "T10 unused",
       ];
 
       // ---------- render ----------
@@ -516,7 +550,7 @@
         document.getElementById("ramp").innerHTML =
           t
             .map((c, i) => {
-              const textc = i >= 3 ? colors.bg : t[6];
+              const textc = i >= 5 ? colors.bg : t[6];
               return `<div class="chip" style="background:${c};color:${textc}">
       <span class="lab">${LABELS[i]}</span><span class="hex">${c}</span></div>`;
             })
@@ -524,13 +558,15 @@
           `<div class="chip" style="background:${colors.brightFg};color:${colors.bg}">
       <span class="lab">bright fg</span><span class="hex">${colors.brightFg}</span></div>` +
           `<div class="chip" style="background:${colors.accent};color:${colors.bg}">
-      <span class="lab">accent</span><span class="hex">${colors.accent}</span></div>`;
+      <span class="lab">accent</span><span class="hex">${colors.accent}</span></div>` +
+          `<div class="chip" style="background:${colors.fg};color:${colors.bg}">
+      <span class="lab">fg</span><span class="hex">${colors.fg}</span></div>`;
 
         // meta
         document.getElementById("v-title").textContent =
           "tufte.nvim — " + v.name;
         document.getElementById("v-sub").textContent =
-          `bg ${colors.bg}  ·  fg ${t[6]}  ·  bright fg ${colors.brightFg}  ·  accent ${colors.accent}  ·  highlight ${colors.highlight}`;
+          `bg ${colors.bg}  ·  fg ${colors.fg}  ·  bright fg ${colors.brightFg}  ·  accent ${colors.accent}  ·  highlight ${colors.highlight}`;
         document.getElementById("v-desc").innerHTML = v.desc;
         document.getElementById("k").textContent = key.toUpperCase();
         document.getElementById("name").textContent = " " + v.name;

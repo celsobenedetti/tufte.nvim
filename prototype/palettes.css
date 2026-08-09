@@ -5,13 +5,14 @@
  *    cd prototype && ./make-prototype.sh
  *
  *  Each palette variant is a class on :root that sets CSS custom properties
- *  consumed by tufte-colors.html.
+ *  consumed by index.html.
  * ========================================================================== */
 
 /* Tufte variant — creamy paper, off-black ink (Tufte-CSS canonical).  */
 :root.palette-cannonical {
   --bg: #fffcf0;
   --bg2: #f7f3e6;
+  --fg: #111111;
   --t1: #e9e9e3;
   --t2: #d4d4ce;
   --t3: #bebeb9;
@@ -35,8 +36,9 @@
 
 /* Coffee variant — creamy paper, warm "black coffee" ink.  */
 :root.palette-coffee {
-  --bg: #fffcf0;
-  --bg2: #f7f3e6;
+  --bg: #f5eddf;
+  --bg2: #E7E0D3;
+  --fg: #2d1c0b;
   --t1: #ece8db;
   --t2: #d9d3c6;
   --t3: #c6bfb2;
@@ -55,29 +57,32 @@
   --t16: #ffb6b6;
   --accent: #a00000;
   --highlight: #ffec99;
-  --wallpaper: #e5e2d8;
+  --wallpaper: #dcd5c8;
 }
 
 /* Dark variant — inverted canonical (Tufte-CSS off-black, paper <-> ink swapped).  */
 :root.palette-dark {
   --bg: #2d1c0b;
   --bg2: #241609;
-  --t1: #303030;
-  --t2: #857b6f;
-  --t3: #a2a2a2;
-  --t4: #b5b5b5;
-  --t5: #c3c3c3;
-  --t6: #d6d6d6;
-  --t7: #fffcf0;
-  --t8: #f57f82;
-  --t9: #6f8788;
-  --t10: #adc9bc;
-  --t11: #002800;
-  --t12: #3f0000;
-  --t13: #006000;
-  --t14: #901011;
+  --fg: #fffcf0;
+  --t1: #241609;
+  --t2: #534535;
+  --t3: #665949;
+  --t4: #796d5e;
+  --t5: #8c8273;
+  --t6: #a09688;
+  --t7: #b3ab9d;
+  --t8: #c6bfb2;
+  --t9: #d9d3c6;
+  --t10: #ece8db;
+  --t11: #f57f82;
+  --t12: #ffec99;
+  --t13: #002800;
+  --t14: #3f0000;
+  --t15: #006000;
+  --t16: #901011;
   --accent: #f57f82;
-  --highlight: #6f8788;
+  --highlight: #ffec99;
   --wallpaper: #281909;
 }
 
