@@ -35,4 +35,30 @@ return {
 		add_char = "#afffaf", -- char-level add emphasis (more saturated)
 		delete_char = "#ffb6b6", -- char-level delete emphasis (more saturated)
 	},
+
+	-- Terminal colors for `:terminal` buffers (incl. vim-fugitive's `-p`
+	-- patch prompts, which run through a real terminal, not Vim syntax
+	-- highlighting). Real, distinguishable ANSI hues — NOT the editor's
+	-- grayscale ramp: ANSI programs (git diff, ls --color, test runners,
+	-- docker) rely on color 2 actually looking green, 3 actually looking
+	-- yellow, etc. Declared per-palette (like `diff`), not palette-derived.
+	-- Contrast-checked (WCAG) against this variant's bg, all >= 4.5:1.
+	terminal = {
+		black = "#fffcf0",
+		black_bright = "#f7f3e6",
+		red = "#a00000",
+		red_bright = "#a00000",
+		green = "#2f6f2f",
+		green_bright = "#2f6f2f",
+		yellow = "#8a6d1a",
+		yellow_bright = "#8a6d1a",
+		blue = "#345d8a",
+		blue_bright = "#345d8a",
+		magenta = "#8a3d6e",
+		magenta_bright = "#8a3d6e",
+		cyan = "#1f7a6c",
+		cyan_bright = "#1f7a6c",
+		white = "#111111",
+		white_bright = "#111111",
+	},
 }

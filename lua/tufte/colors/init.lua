@@ -16,6 +16,25 @@ local M = {}
 ---@field accent string  -- vermillion, used sparingly
 ---@field highlight string -- yellow highlight
 ---@field diff tufte.PaletteDiff -- standard diff add/remove colors
+---@field terminal tufte.TerminalColors -- ANSI palette for `:terminal` buffers
+
+---@class tufte.TerminalColors
+---@field black string
+---@field black_bright string
+---@field red string
+---@field red_bright string
+---@field green string
+---@field green_bright string
+---@field yellow string
+---@field yellow_bright string
+---@field blue string
+---@field blue_bright string
+---@field magenta string
+---@field magenta_bright string
+---@field cyan string
+---@field cyan_bright string
+---@field white string
+---@field white_bright string
 
 ---@class tufte.ColorScheme : tufte.Palette
 ---@field selection string -- soft yellow selection/visual background
@@ -31,7 +50,6 @@ local M = {}
 ---@field warning string
 ---@field info string
 ---@field hint string
----@field terminal { black: string, black_bright: string, red: string, red_bright: string, yellow: string, yellow_bright: string, blue: string, blue_bright: string, magenta: string, magenta_bright: string, cyan: string, cyan_bright: string, white: string, white_bright: string }
 
 ---@param variant string
 ---@return tufte.Palette
@@ -118,37 +136,9 @@ function M.setup(opts)
 	colors.info = colors.light_fg
 	colors.hint = colors.dark_fg
 
-	-- Terminal colors for `:terminal` buffers (incl. vim-fugitive's `-p`
-	-- patch prompts, which run through a real terminal, not Vim syntax
-	-- highlighting — see groups/base.lua's diff comment).
-	--
-	-- These are real, distinguishable hues, NOT the editor's grayscale ramp.
-	-- The syntax palette intentionally desaturates everything into
-	-- luminance steps (only errors/highlight get real color) — that's fine
-	-- for Vim highlighting, but ANSI programs (git diff, ls --color, test
-	-- runners, docker) rely on color 2 actually looking green, 3 actually
-	-- looking yellow, etc. Fixed hex, not palette-derived, for the same
-	-- reason as colors.diff: both variants share the same background.
-	-- Contrast-checked (WCAG) against bg #fffcf0, all >= 4.5:1.
-	colors.terminal = {
-		black = colors.bg,
-		black_bright = colors.lighter_bg,
-		red = colors.accent,
-		red_bright = colors.accent,
-		green = "#2f6f2f",
-		green_bright = "#2f6f2f",
-		yellow = "#8a6d1a",
-		yellow_bright = "#8a6d1a",
-		blue = "#345d8a",
-		blue_bright = "#345d8a",
-		magenta = "#8a3d6e",
-		magenta_bright = "#8a3d6e",
-		cyan = "#1f7a6c",
-		cyan_bright = "#1f7a6c",
-		white = colors.fg,
-		white_bright = colors.fg,
-	}
-
+	-- Terminal colors come from the palette itself (see palettes/*.lua), so
+	-- each variant declares its own ANSI palette — the same convention as
+	-- `diff`. Flows through via the palette extend above.
 	opts.on_colors(colors)
 
 	return colors, opts

@@ -35,7 +35,7 @@ return {
 		"#ece8db", -- T10
 	},
 	accent = "#f57f82", -- vermillion: errors, deletions only (rare, sparing)
-	highlight = "#ffec99", -- dark gold: search, selection, todo (a wash, not a pastel — dark ink washes don't invert to a light bg)
+	highlight = "#b3a56f", -- dark gold: search, selection, todo (a wash, not a pastel — dark ink washes don't invert to a light bg)
 
 	-- Standard diff add/remove colors. Dark, muted washes (not canonical's
 	-- pastels) so the theme's light ink stays legible drawn on top — see the
@@ -45,5 +45,30 @@ return {
 		delete = "#3f0000", -- line-level delete background
 		add_char = "#006000", -- char-level add emphasis (more saturated)
 		delete_char = "#901011", -- char-level delete emphasis (more saturated)
+	},
+
+	-- Terminal colors for `:terminal` buffers. Same rationale as the light
+	-- variants (see cannonical.lua) — real ANSI hues, declared per-palette —
+	-- but re-picked here, like accent/diff, for legibility against the dark
+	-- bg: the canonical mid-dark hues would drop to ~2.3-3.4:1. Contrast
+	-- vs bg #2d1c0b (WCAG): red 6.43, green 7.30, yellow 6.86, blue 4.87,
+	-- magenta 5.28, cyan 6.95.
+	terminal = {
+		black = "#2d1c0b",
+		black_bright = "#241609",
+		red = "#f57f82",
+		red_bright = "#f57f82",
+		green = "#6fbf6f",
+		green_bright = "#6fbf6f",
+		yellow = "#c9a25a",
+		yellow_bright = "#c9a25a",
+		blue = "#5f8fc7",
+		blue_bright = "#5f8fc7",
+		magenta = "#c77ba0",
+		magenta_bright = "#c77ba0",
+		cyan = "#5fb8a8",
+		cyan_bright = "#5fb8a8",
+		white = "#fffcf0",
+		white_bright = "#fffcf0",
 	},
 }
