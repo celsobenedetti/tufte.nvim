@@ -1,9 +1,5 @@
 # How tufte.nvim colors terminal buffers
 
-Research against primary sources: the tufte.nvim source in this repo, the local
-Neovim runtime docs (`/usr/local/share/nvim/runtime/doc/`), and the official
-Neovim C source (GitHub `neovim/neovim` master, `src/nvim/terminal.c`).
-
 ## Summary
 
 - tufte colors `:terminal` buffers through the **ANSI 16-color palette**

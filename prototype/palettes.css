@@ -62,8 +62,8 @@
 
 /* Dark variant — inverted canonical (Tufte-CSS off-black, paper <-> ink swapped).  */
 :root.palette-dark {
-  --bg: #2d1c0b;
-  --bg2: #241609;
+  --bg: #1a1006;
+  --bg2: #2d1c0b;
   --fg: #fffcf0;
   --t1: #241609;
   --t2: #534535;
@@ -77,12 +77,12 @@
   --t10: #ece8db;
   --t11: #f57f82;
   --t12: #b3a56f;
-  --t13: #002800;
-  --t14: #3f0000;
-  --t15: #006000;
-  --t16: #901011;
+  --t13: #005f00;
+  --t14: #5f0000;
+  --t15: #008b00;
+  --t16: #a91011;
   --accent: #f57f82;
   --highlight: #b3a56f;
-  --wallpaper: #281909;
+  --wallpaper: #170e05;
 }
 
