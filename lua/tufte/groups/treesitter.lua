@@ -66,7 +66,7 @@ function M.get(c, opts)
     ["@markup.list.unchecked"]      = { fg = c.fg },
     ["@markup.math"]                = "Special",
     ["@markup.raw"]                 = "String",
-    ["@markup.raw.markdown_inline"] = { bg = c.darker_bg, fg = c.fg },
+    ["@markup.raw.markdown_inline"] = { fg = c.bright_fg, bg = c.bg2 },
     ["@markup.strikethrough"]       = { strikethrough = true },
     ["@markup.strong"]              = { bold = true },
     ["@markup.underline"]           = { underline = true },

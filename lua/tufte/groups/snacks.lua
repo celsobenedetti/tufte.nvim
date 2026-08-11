@@ -72,6 +72,7 @@ function M.get(c, opts)
     SnacksPickerPreviewNormal = { bg = c.dark_bg, fg = c.fg },
     SnacksPickerPreviewBorder = { fg = c.bright_fg, bg = c.dark_bg },
     SnacksPickerPreviewTitle  = { fg = c.fg, bold = true },
+    SnacksPickerPathHidden = { fg = c.bright_fg, italic = true},
 
     -- Indent
     SnacksIndent              = { fg = c.muted },

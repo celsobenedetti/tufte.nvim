@@ -19,8 +19,8 @@
 --
 ---@type tufte.Palette
 return {
-	bg = "#2d1c0b", -- near-black paper (canonical's ink, promoted to bg)
-	bg2 = "#241609", -- slightly darker than bg
+	bg = "#1a1006", -- near-black paper (canonical's ink, promoted to bg)
+	bg2 = "#2d1c0b", -- slightly darker than bg
 	fg = "#fffcf0", -- canonical's paper, promoted to ink
 	tiers = {
 		"#241609", -- T1
@@ -41,10 +41,10 @@ return {
 	-- pastels) so the theme's light ink stays legible drawn on top — see the
 	-- diff convention comment in colors/init.lua.
 	diff = {
-		add = "#002800", -- line-level add background
-		delete = "#3f0000", -- line-level delete background
-		add_char = "#006000", -- char-level add emphasis (more saturated)
-		delete_char = "#901011", -- char-level delete emphasis (more saturated)
+		add = "#005f00", -- line-level add background
+		delete = "#5f0000", -- line-level delete background
+		add_char = "#008b00", -- char-level add emphasis (more saturated)
+		delete_char = "#a91011", -- char-level delete emphasis (more saturated)
 	},
 
 	-- Terminal colors for `:terminal` buffers. Same rationale as the light

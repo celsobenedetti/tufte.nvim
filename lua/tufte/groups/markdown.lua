@@ -16,6 +16,7 @@ function M.get(c, opts)
     ["@markup.heading.4.markdown"] = { fg = c.dark_fg, bold = true },
     ["@markup.heading.5.markdown"] = { fg = c.fg, bold = true },
     ["@markup.heading.6.markdown"] = { fg = c.bright_fg, bold = true },
+    ["@markup.raw.markdown_inline"] = { fg = c.bright_fg, bg = c.bg },
 
     -- Text styles
     ["@markup.strong"]       = { bold = true },
