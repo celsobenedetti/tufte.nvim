@@ -11,6 +11,7 @@ function M.get(c, opts)
   return {
     -- Diagnostics
     DiagnosticError                  = { fg = c.error },
+    DiagnosticUnnecessary            = { fg = c.light_fg },
     DiagnosticSignError              = { fg = c.error },
     DiagnosticWarn                   = { fg = c.warning },
     DiagnosticInfo                   = { fg = c.info },
