@@ -5,6 +5,7 @@ function M.setup(opts)
 	opts = require("tufte.config").extend(opts)
 
 	local colors = require("tufte.colors").setup(opts)
+	require("tufte.colorscheme").set(colors)
 	local groups = require("tufte.groups.init").setup(colors, opts)
 
 	-- only needed to clear when not the default colorscheme
