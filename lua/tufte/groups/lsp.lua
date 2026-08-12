@@ -44,7 +44,7 @@ function M.get(c, opts)
 
     -- LSP References and Definitions
     LspReferenceText                 = { bg = c.darker_bg },
-    LspReferenceRead                 = { bg = c.darker_bg },
+    LspReferenceRead                 = { bg = c.dark_bg },
     LspReferenceWrite                = { bg = c.darker_bg, bold = true },
     LspSignatureActiveParameter      = { fg = c.light_fg, bold = true },
     LspCodeLens                      = { fg = c.muted },
