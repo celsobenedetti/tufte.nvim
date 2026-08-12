@@ -15,7 +15,7 @@ function M.get(c, opts)
     lCursor                     = { fg = c.bg, bg = c.fg },
     CursorIM                    = { fg = c.bg, bg = c.fg },
     CursorColumn                = { bg = c.darker_bg },
-    CursorLine                  = { bg = c.dark_bg },
+    CursorLine                  = { bg = c.lighter_bg },
     Directory                   = { fg = c.fg },
     DiffAdd                     = { bg = c.diff.add },
     DiffChange                  = { bg = c.diff.change },
