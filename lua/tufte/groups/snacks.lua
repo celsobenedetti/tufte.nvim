@@ -14,6 +14,11 @@ function M.get(c, opts)
     SnacksBackdrop         = { bg = c.dark_bg },
     SnacksNormalNC         = { bg = c.dark_bg, fg = c.fg },
     SnacksWinBarNC         = { bg = c.dark_bg, fg = c.dark_fg },
+    -- Terminal content stays on the paper bg like a plain `:terminal`, so
+    -- TUI apps (lazygit) don't inherit the darker popup chrome. Point a
+    -- snack window's winhighlight Normal at these to opt in.
+    SnacksTerminalNormal   = { bg = c.bg, fg = c.fg },
+    SnacksTerminalNormalNC = { bg = c.bg, fg = c.fg },
     SnacksNotifierInfo     = { fg = c.info },
     SnacksNotifierWarn     = { fg = c.warning },
     SnacksNotifierError    = { fg = c.error },
