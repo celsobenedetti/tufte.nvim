@@ -9,7 +9,7 @@ local M = {}
 function M.get(c)
   -- stylua: ignore
   return {
-    BlinkCmpMenu              = { bg = c.dark_bg, fg = c.fg },
+    BlinkCmpMenu              = { fg = c.fg },
     BlinkCmpMenuBorder        = { bg = c.dark_bg, fg = c.bright_fg },
     BlinkCmpMenuSelection     = { bg = Util.blend_bg(c.darker_bg, 0.8) },
     BlinkCmpLabel             = { fg = c.fg },
