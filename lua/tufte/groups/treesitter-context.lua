@@ -7,7 +7,7 @@ local M = {}
 function M.get(c)
   -- stylua: ignore
   return {
-    TreesitterContext           = { fg = c.fg, bg = c.dark_bg },
+    TreesitterContext           = { fg = c.fg, bg = c.bg2 },
     TreesitterContextLineNumber = { fg = c.muted, bg = c.dark_bg },
     TreesitterContextSeparator  = { fg = c.dark_fg },
   }

@@ -62,7 +62,7 @@ function M.get(c, opts)
     SpellRare                   = { sp = c.hint, undercurl = true },
     StatusLine                  = { fg = c.bright_fg, bg = c.tiers[1] },
     StatusLineNC                = { fg = c.muted, bg = c.bg },
-    TabLine                     = { bg = c.dark_bg, fg = c.fg },
+    TabLine                     = { bg = c.bg2, fg = c.fg },
     TabLineFill                 = { bg = c.bg },
     TabLineSel                  = { fg = c.bg, bg = c.fg },
     Title                       = { fg = c.fg, bold = true },
