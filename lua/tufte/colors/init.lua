@@ -85,10 +85,10 @@ local function build_colorscheme(p)
 			dark_bg = t[2],
 			darker_bg = t[3],
 
-			muted = t[4], -- comments, faint secondary text
-			dark_fg = t[5], -- least emphasized readable text
-			light_fg = t[7], -- lightly emphasized text
-			bright_fg = t[9], -- strongly emphasized text
+			muted = t[5], -- comments, faint secondary text
+			dark_fg = t[6], -- least emphasized readable text
+			light_fg = t[8], -- lightly emphasized text
+			bright_fg = t[10], -- strongly emphasized text
 
 			accent = p.accent,
 			highlight = p.highlight,
