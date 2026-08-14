@@ -6,7 +6,7 @@ local M = {}
 ---@return tufte.Highlights
 function M.get(c)
 	return {
-		GitSignsAdd = { fg = c.bright_fg },
+		GitSignsAdd = { fg = c.diff.add_contrast },
 		GitSignsChange = { fg = c.light_fg },
 		GitSignsDelete = { fg = c.accent },
 	}

@@ -45,6 +45,7 @@ return {
 		delete = "#5f0000", -- line-level delete background
 		add_char = "#008b00", -- char-level add emphasis (more saturated)
 		delete_char = "#a91011", -- char-level delete emphasis (more saturated)
+		add_contrast = "#afffaf", -- color for "git added" with contrast
 	},
 
 	-- Terminal colors for `:terminal` buffers. Same rationale as the light

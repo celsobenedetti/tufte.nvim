@@ -7,6 +7,7 @@ local M = {}
 ---@field delete string -- line-level delete background
 ---@field add_char string -- char-level add emphasis
 ---@field delete_char string -- char-level delete emphasis
+---@field add_contrast string -- "git added" color with contrast (dark for light theme, light for dark theme)
 
 ---@class tufte.Palette
 ---@field bg string

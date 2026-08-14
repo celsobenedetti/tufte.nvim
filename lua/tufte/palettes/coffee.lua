@@ -8,18 +8,19 @@
 ---@type tufte.Palette
 return {
 	bg = "#f5eddf", -- creamy off-white paper
-	bg2 = "#E7E0D3", -- slightly darker than bg, creamier
+	bg2 = "#E5DCCE", -- slightly darker than bg, creamier
 	fg = "#2d1c0b", -- black coffee ink
 	tiers = {
-		"#ece8db", -- T1 faintest: gutter, chrome
-		"#d9d3c6", -- T2
-		"#c6bfb2", -- T3
-		"#b3ab9d", -- T4
-		"#a09688", -- T5
-		"#8c8273", -- T6
-		"#796d5e", -- T7
-		"#665949", -- T8
-		"#534535", -- T9
+		"#E5DCCE",
+		"#D4CBBC",
+		"#C4B9AB",
+		"#B3A89A",
+		"#A39788",
+		"#928677",
+		"#827565",
+		"#716454",
+		"#615243",
+		"#504131",
 		"#403020", -- T10 near-ink
 	},
 	accent = "#a00000", -- vermillion: errors, deletions only (rare, sparing)
@@ -34,6 +35,7 @@ return {
 		delete = "#ffd7d7", -- line-level delete background
 		add_char = "#afffaf", -- char-level add emphasis (more saturated)
 		delete_char = "#ffb6b6", -- char-level delete emphasis (more saturated)
+		add_contrast = "#00b100", -- color for "git added" with contrast
 	},
 
 	-- Terminal colors for `:terminal` buffers (incl. vim-fugitive's `-p`
