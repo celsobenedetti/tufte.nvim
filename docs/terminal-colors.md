@@ -58,10 +58,13 @@ By ANSI convention indices 0-7 are the "normal intensity" set and 8-15 the
 brightness difference** in the palette: every `*_bright` value equals its
 non-bright counterpart (`red_bright` = `red`, `green_bright` = `green`,
 `yellow_bright` = `yellow`, etc.). The one exception is `black_bright` (ANSI 8),
-which is `bg2` — for all three palettes `bg2` is slightly *darker* than `bg`
-(`cannonical.lua:11`, `coffee.lua:11`, `dark.lua:23`), so "bright black" is a
-slightly darker paper tone, not a gray. Note also `colors.lighter_bg` is named
-"lighter" but is actually slightly darker than `bg` in every palette.
+which is `bg2` — the palette's "near-bg" chrome shade. For the light variants
+(`cannonical.lua:11`, `coffee.lua:11`) `bg2` is slightly *darker* than `bg`, but
+for the dark variant (`dark.lua:24`) it is slightly *lighter* than `bg`, so
+"bright black" is a slightly darker paper tone on light, and a slightly lighter
+paper tone on dark — never a gray. Note also `colors.lighter_bg` is named
+"lighter" but is slightly darker than `bg` in the light palettes and slightly
+lighter than `bg` in the dark palette.
 
 ### Resolved values per palette
 
@@ -71,7 +74,7 @@ derived pairs differ.
 
 | ANSI | conventional name | tufte key | coffee | cannonical | dark | source |
 |------|-------------------|-----------|--------|-----------|------|--------|
-| 0 | black | `black` | `#f5eddf` | `#fffcf0` | `#2d1c0b` | = `colors.bg` |
+| 0 | black | `black` | `#f5eddf` | `#fffcf0` | `#111111` | = `colors.bg` |
 | 1 | red | `red` | `#a00000` | `#a00000` | `#f57f82` | = `colors.accent` |
 | 2 | green | `blue` ⚠ | `#345d8a` | `#345d8a` | `#345d8a` | bug: should be `green` |
 | 3 | yellow | `yellow` | `#8a6d1a` | `#8a6d1a` | `#8a6d1a` | fixed |
@@ -79,7 +82,7 @@ derived pairs differ.
 | 5 | magenta | `magenta` | `#8a3d6e` | `#8a3d6e` | `#8a3d6e` | fixed |
 | 6 | cyan | `cyan` | `#1f7a6c` | `#1f7a6c` | `#1f7a6c` | fixed |
 | 7 | white | `white` | `#2d1c0b` | `#111111` | `#fffcf0` | = `colors.fg` |
-| 8 | bright black | `black_bright` | `#E7E0D3` | `#f7f3e6` | `#241609` | = `colors.lighter_bg` (= `bg2`) |
+| 8 | bright black | `black_bright` | `#E7E0D3` | `#f7f3e6` | `#1b1b1b` | = `colors.lighter_bg` (= `bg2`) |
 | 9 | bright red | `red_bright` | `#a00000` | `#a00000` | `#f57f82` | = `accent` |
 | 10 | bright green | `blue_bright` ⚠ | `#345d8a` | `#345d8a` | `#345d8a` | bug: should be `green_bright` |
 | 11 | bright yellow | `yellow_bright` | `#8a6d1a` | `#8a6d1a` | `#8a6d1a` | fixed |
@@ -116,10 +119,10 @@ Empirically confirmed after `require("tufte").load()` with defaults (coffee):
 The WCAG claim in `colors/init.lua:132` ("all >= 4.5:1") is against `#fffcf0`
 (cannonical paper). Recomputed: green 5.95:1, yellow 4.77:1, blue 6.64:1,
 magenta 6.87:1, cyan 5.03:1 — all pass on the light variants. Against the dark
-variant's `bg` `#2d1c0b` they drop to green 2.68:1, yellow 3.34:1, blue 2.40:1,
-magenta 2.32:1, cyan 3.16:1 — below WCAG AA. Unlike `accent`/`highlight`/`diff`,
+variant's `bg` `#111111` they drop to green 3.09:1, yellow 3.85:1, blue 2.77:1,
+magenta 2.67:1, cyan 3.65:1 — below WCAG AA. Unlike `accent`/`highlight`/`diff`,
 which `dark.lua` explicitly re-picks for a dark background
-(`dark.lua:10-14,37-38`), the fixed terminal hues are left unchanged for dark.
+(`dark.lua:10-15,38-39`), the fixed terminal hues are left unchanged for dark.
 
 ---
 
@@ -309,7 +312,7 @@ tufte.nvim (this repo, `/home/celso/.local/share/nvim/lazy/tufte.nvim`):
 - `lua/tufte/config.lua:10` — `terminal_colors` default
 - `lua/tufte/colors/init.lua:34,65,121-150` — terminal palette + design comment
 - `lua/tufte/palettes/cannonical.lua:10-12,25`, `coffee.lua:10-12,25`,
-  `dark.lua:22-24,37` — bg/bg2/fg/accent per variant
+  `dark.lua:23-25,38` — bg/bg2/fg/accent per variant
 - `lua/tufte/groups/base.lua:20-23,26-27,41,63-64` — DiffAdd/DiffDelete, Normal,
   StatusLine, WinSeparator
 - `lua/tufte/groups/git.lua:5-28,32-43,48-66,68-89,95` — fugitive terminal wash

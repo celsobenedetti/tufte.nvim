@@ -37,24 +37,26 @@
 /* Coffee variant — creamy paper, warm "black coffee" ink.  */
 :root.palette-coffee {
   --bg: #f5eddf;
-  --bg2: #E7E0D3;
+  --bg2: #E5DCCE;
   --fg: #2d1c0b;
-  --t1: #ece8db;
-  --t2: #d9d3c6;
-  --t3: #c6bfb2;
-  --t4: #b3ab9d;
-  --t5: #a09688;
-  --t6: #8c8273;
-  --t7: #796d5e;
-  --t8: #665949;
-  --t9: #534535;
-  --t10: #403020;
-  --t11: #a00000;
-  --t12: #ffec99;
-  --t13: #d0ffd0;
-  --t14: #ffd7d7;
-  --t15: #afffaf;
-  --t16: #ffb6b6;
+  --t1: #E5DCCE;
+  --t2: #D4CBBC;
+  --t3: #C4B9AB;
+  --t4: #B3A89A;
+  --t5: #A39788;
+  --t6: #928677;
+  --t7: #827565;
+  --t8: #716454;
+  --t9: #615243;
+  --t10: #504131;
+  --t11: #403020;
+  --t12: #a00000;
+  --t13: #ffec99;
+  --t14: #d0ffd0;
+  --t15: #ffd7d7;
+  --t16: #afffaf;
+  --t17: #ffb6b6;
+  --t18: #00b100;
   --accent: #a00000;
   --highlight: #ffec99;
   --wallpaper: #dcd5c8;
@@ -62,27 +64,28 @@
 
 /* Dark variant — inverted canonical (Tufte-CSS off-black, paper <-> ink swapped).  */
 :root.palette-dark {
-  --bg: #1a1006;
-  --bg2: #2d1c0b;
+  --bg: #111111;
+  --bg2: #1b1b1b;
   --fg: #fffcf0;
-  --t1: #241609;
-  --t2: #534535;
-  --t3: #665949;
-  --t4: #796d5e;
-  --t5: #8c8273;
-  --t6: #a09688;
-  --t7: #b3ab9d;
-  --t8: #c6bfb2;
-  --t9: #d9d3c6;
-  --t10: #ece8db;
+  --t1: #181818;
+  --t2: #2d2d2d;
+  --t3: #424242;
+  --t4: #585858;
+  --t5: #6d6d6d;
+  --t6: #838383;
+  --t7: #989898;
+  --t8: #adadad;
+  --t9: #c3c3c3;
+  --t10: #d8d8d8;
   --t11: #f57f82;
   --t12: #b3a56f;
   --t13: #005f00;
   --t14: #5f0000;
   --t15: #008b00;
   --t16: #a91011;
+  --t17: #afffaf;
   --accent: #f57f82;
   --highlight: #b3a56f;
-  --wallpaper: #170e05;
+  --wallpaper: #0f0f0f;
 }
 
