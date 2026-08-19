@@ -25,9 +25,10 @@ function M.get(c, opts)
     ["@markup.underline"]    = { underline = true },
 
     -- Links and references
-    ["@markup.link"]         = { fg = c.fg, underline = true },
-    ["@markup.link.url"]     = { fg = c.bright_fg, underline = true },
-    ["@markup.link.label"]   = { fg = c.fg },
+    ["@markup.link"]         = { fg = c.accent, underline = true },
+    ["@markup.link.url"]     = { fg = c.accent, underline = true },
+    ["@markup.link.label"]   = { fg = c.accent },
+    ["@markup.link.label.markdown_inline"] = { fg = c.accent },
 
     -- Code blocks
     ["@markup.raw"]          = { fg = c.light_fg },
