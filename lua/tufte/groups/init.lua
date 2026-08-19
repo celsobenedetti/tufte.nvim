@@ -7,6 +7,7 @@ local M = {}
 M.plugins = {
 	["blink.cmp"] = "blink",
 	["codediff.nvim"] = "codediff",
+	["git-conflict.nvim"] = "git-conflict",
 	["gitsigns.nvim"] = "gitsigns",
 	["indent-blankline.nvim"] = "indent-blankline",
 	["lazy.nvim"] = "lazy",
