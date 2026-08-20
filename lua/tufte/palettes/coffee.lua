@@ -9,19 +9,18 @@
 return {
 	bg = "#f5eddf", -- creamy off-white paper
 	bg2 = "#E5DCCE", -- slightly darker than bg, creamier
-	fg = "#2d1c0b", -- black coffee ink
+	fg = "#111111", -- black coffee ink
 	tiers = {
 		"#E5DCCE",
-		"#D4CBBC",
-		"#C4B9AB",
-		"#B3A89A",
-		"#A39788",
-		"#928677",
-		"#827565",
-		"#716454",
-		"#615243",
-		"#504131",
-		"#403020", -- T10 near-ink
+		"#CCC5BA",
+		"#B7B1A7",
+		"#A29D94",
+		"#8D8981",
+		"#79756F",
+		"#64615C",
+		"#4F4D49",
+		"#3A3936",
+		"#262524",
 	},
 	accent = "#a00000", -- vermillion: errors, deletions only (rare, sparing)
 	highlight = "#ffec99", -- yellow: search, selection, todo
