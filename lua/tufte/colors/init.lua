@@ -7,7 +7,6 @@ local M = {}
 ---@field delete string -- line-level delete background
 ---@field add_char string -- char-level add emphasis
 ---@field delete_char string -- char-level delete emphasis
----@field add_contrast string -- "git added" color with contrast (dark for light theme, light for dark theme)
 
 ---@class tufte.Palette
 ---@field bg string
@@ -16,6 +15,7 @@ local M = {}
 ---@field tiers string[] -- 10 entries, T1 faintest (near bg) -> T10 (near fg)
 ---@field accent string  -- vermillion, used sparingly
 ---@field highlight string -- yellow highlight
+---@field highlight_fg string -- yellow highlight
 ---@field diff tufte.PaletteDiff -- standard diff add/remove colors
 ---@field terminal tufte.TerminalColors -- ANSI palette for `:terminal` buffers
 
@@ -38,7 +38,6 @@ local M = {}
 ---@field white_bright string
 
 ---@class tufte.ColorScheme : tufte.Palette
----@field selection string -- soft yellow selection/visual background
 ---@field muted string -- comments, secondary/faint text
 ---@field dark_bg string -- popups, statusline, sidebars
 ---@field darker_bg string -- cursorline, colorcolumn, reference highlights
@@ -113,7 +112,6 @@ function M.setup(opts)
 	Util.bg = colors.bg
 	Util.fg = colors.fg
 
-	colors.selection = Util.blend_bg(colors.highlight, 0.4, colors.bg) -- soft yellow selection
 
 	-- Diff add/remove convention: every diff-add/diff-remove highlight group
 	-- across the colorscheme (native Diff*/diff*, gitsigns, codediff.nvim,

@@ -5,11 +5,13 @@
 -- bg/fg are the paper and ink endpoints; tiers are the ramp between them,
 -- faintest (T1) to darkest (T10).
 --
+--
+local fg = "#111111"
 ---@type tufte.Palette
 return {
 	bg = "#fffcf0", -- creamy off-white paper
 	bg2 = "#f7f3e6", -- slightly darker than bg, creamier
-	fg = "#111111", -- off-black ink
+	fg = fg, -- off-black ink
 	tiers = {
 		"#e9e9e3", -- T1 faintest: gutter, chrome
 		"#d4d4ce", -- T2
@@ -24,6 +26,7 @@ return {
 	},
 	accent = "#a00000", -- vermillion: errors, deletions only (rare, sparing)
 	highlight = "#ffec99", -- yellow: search, selection, todo
+	highlight_fg = fg, -- yellow: search, selection, todo
 
 	-- Standard diff add/remove colors. Every diff-add/diff-remove highlight
 	-- group in the colorscheme (native Diff*/diff*, gitsigns, codediff.nvim,

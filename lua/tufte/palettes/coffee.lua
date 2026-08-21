@@ -4,12 +4,14 @@
 -- lightened-coffee, with the mid-tones nudged warm so grays read as coffee,
 -- not gray. bg/fg are the paper and ink endpoints; tiers are the ramp
 -- between them, faintest (T1) to darkest (T10).
---
+
+local fg = "#100F0F" -- black coffee ink
+
 ---@type tufte.Palette
 return {
-	bg = "#f5eddf", -- creamy off-white paper
+	bg = "#fffcf0", -- creamy off-white paper
 	bg2 = "#E5DCCE", -- slightly darker than bg, creamier
-	fg = "#111111", -- black coffee ink
+	fg = fg,
 	tiers = {
 		"#E5DCCE",
 		"#CCC5BA",
@@ -24,6 +26,7 @@ return {
 	},
 	accent = "#a00000", -- vermillion: errors, deletions only (rare, sparing)
 	highlight = "#ffec99", -- yellow: search, selection, todo
+	highlight_fg = fg,
 
 	-- Standard diff add/remove colors. Every diff-add/diff-remove highlight
 	-- group in the colorscheme (native Diff*/diff*, gitsigns, codediff.nvim,
@@ -34,7 +37,6 @@ return {
 		delete = "#ffd7d7", -- line-level delete background
 		add_char = "#afffaf", -- char-level add emphasis (more saturated)
 		delete_char = "#ffb6b6", -- char-level delete emphasis (more saturated)
-		add_contrast = "#00b100", -- color for "git added" with contrast
 	},
 
 	-- Terminal colors for `:terminal` buffers (incl. vim-fugitive's `-p`

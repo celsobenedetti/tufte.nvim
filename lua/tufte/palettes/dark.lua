@@ -18,9 +18,10 @@
 --   T1 1.06  T2 1.37  T3 1.88  T4 2.65  T5 3.65  T6 4.98  T7 6.55
 --   T8 8.41  T9 10.71  T10 13.25
 --
+local  bg = "#111111" -- canonical's off-black ink, promoted to paper
 ---@type tufte.Palette
 return {
-	bg = "#111111", -- canonical's off-black ink, promoted to paper
+	bg = bg,
 	bg2 = "#1b1b1b", -- slightly lighter than bg: floats, folded, tabline
 	fg = "#fffcf0", -- canonical's cream paper, promoted to ink
 	tiers = {
@@ -37,6 +38,7 @@ return {
 	},
 	accent = "#f57f82", -- vermillion: errors, deletions only (rare, sparing)
 	highlight = "#b3a56f", -- dark gold: search, selection, todo (a wash, not a pastel — dark ink washes don't invert to a light bg)
+	highlight_fg = bg,
 
 	-- Standard diff add/remove colors. Dark, muted washes (not canonical's
 	-- pastels) so the theme's light ink stays legible drawn on top — see the
@@ -46,7 +48,6 @@ return {
 		delete = "#5f0000", -- line-level delete background
 		add_char = "#008b00", -- char-level add emphasis (more saturated)
 		delete_char = "#a91011", -- char-level delete emphasis (more saturated)
-		add_contrast = "#afffaf", -- color for "git added" with contrast
 	},
 
 	-- Terminal colors for `:terminal` buffers. Same rationale as the light

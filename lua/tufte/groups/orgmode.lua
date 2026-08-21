@@ -80,7 +80,7 @@ function M.get(c, opts)
     ["@org.table.heading"]   = { fg = c.fg, bold = true },
 
     -- Source block edit buffer
-    ["@org.edit_src"] = { bg = c.selection },
+    ["@org.edit_src"] = { bg = c.highlight },
 
     -- Keywords
     ["@org.keyword.todo"] = { fg = c.error, bold = true },
