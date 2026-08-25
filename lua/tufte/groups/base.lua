@@ -51,7 +51,7 @@ function M.get(c, opts)
     PmenuSbar                   = { bg = Util.blend_fg(c.dark_bg, 0.95) },
     PmenuThumb                  = { bg = c.darker_bg },
     Question                    = { fg = c.fg },
-    QuickFixLine                = { bg = c.highlight, bold = true },
+    QuickFixLine                = { bg = c.bg2, bold = true },
     Search                      = { bg = c.light_fg, fg = c.bg, bold = true },
     IncSearch                   = { bg = c.highlight, fg = c.fg, bold = true },
     CurSearch                   = "IncSearch",

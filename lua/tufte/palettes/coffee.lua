@@ -10,7 +10,7 @@ local fg = "#100F0F" -- black coffee ink
 ---@type tufte.Palette
 return {
 	bg = "#fffcf0", -- creamy off-white paper
-	bg2 = "#E5DCCE", -- slightly darker than bg, creamier
+	bg2 = "#ede3d5", -- slightly darker than bg, creamier
 	fg = fg,
 	tiers = {
 		"#E5DCCE",
