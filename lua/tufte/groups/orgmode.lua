@@ -89,8 +89,8 @@ function M.get(c, opts)
     -- Agenda
     ["@org.agenda.deadline"]          = { fg = c.error },
     ["@org.agenda.deadline.upcoming"] = { fg = c.warning },
-    ["@org.agenda.scheduled"]         = { fg = c.bright_fg },
-    ["@org.agenda.scheduled_past"]    = { fg = c.warning },
+    ["@org.agenda.scheduled"]         = { fg = c.fg },
+    ["@org.agenda.scheduled_past"]    = { fg = c.accent },
     ["@org.agenda.time_grid"]         = { fg = c.warning },
     ["@org.agenda.separator"]         = { fg = c.dark_fg },
   }
