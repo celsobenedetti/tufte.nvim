@@ -14,4 +14,6 @@ end
 
 M.setup = config.setup
 
+require("tufte.autocmds")
+
 return M
