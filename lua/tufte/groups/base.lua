@@ -21,6 +21,7 @@ function M.get(c, opts)
     DiffChange                  = { bg = c.diff.change },
     DiffDelete                  = { bg = c.diff.delete },
     DiffText                    = { bg = c.diff.text },
+    ["@attribute.diff"]         = { bg = c.bg2 },
     EndOfBuffer                 = { fg = c.bg },
     ErrorMsg                    = { fg = c.error, bold = true },
     VertSplit                   = { fg = c.dark_fg },
