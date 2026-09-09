@@ -17,7 +17,7 @@ M.defaults = {
 		variables = {},
 		-- Background styles. Can be "dark", "transparent" or "normal"
 		sidebars = "dark", -- style for sidebars, see below
-		floats = "dark", -- style for floating windows
+		floats = {}, -- style for floating windows
 	},
 	dim_inactive = false, -- dims inactive windows
 	lualine_bold = false, -- When `true`, section headers in the lualine theme will be bold
